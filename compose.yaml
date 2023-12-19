@@ -1,9 +1,15 @@
 services:
-  postgres:
-    image: 'postgres:latest'
+  postgres-db:
+    image: library/postgres:16
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - postgres:/var/lib/postgresql/data:z
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
     ports:
-      - '5432'
+      - ${DB_PORT}:5432
+
+volumes:
+  postgres:
