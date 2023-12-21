@@ -2,6 +2,7 @@ package it.dziubinski.workInIt.cron
 
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
+import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
@@ -42,7 +43,11 @@ class JustJoinItCron(private val jobOfferCountRepository: JobOfferCountRepositor
         }
     }
 
-    private fun saveNewJobOfferCount(offerCount: Int, category: String? = null, city: String? = null): JobOfferCount {
+    private fun saveNewJobOfferCount(
+        offerCount: Int,
+        category: JobCategory = JobCategory.Total,
+        city: String? = null
+    ): JobOfferCount {
         val jobOfferCount = JobOfferCount(JobPortal.JUST_JOIN_IT, offerCount, category, city)
         jobOfferCountRepository.save(jobOfferCount)
         return jobOfferCount

@@ -1,17 +1,14 @@
 package it.dziubinski.workInIt.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.util.*
 
 @Entity
 class JobOfferCount(
-    val jobPortal: JobPortal,
+    @Enumerated(EnumType.STRING) val jobPortal: JobPortal,
     val count: Int,
-    val category: String?,
+    @Enumerated(EnumType.STRING) val category: JobCategory,
     val city: String?,
     @Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID = UUID.randomUUID(),
     val createdAt: LocalDateTime = LocalDateTime.now(),
@@ -20,4 +17,8 @@ class JobOfferCount(
 
 enum class JobPortal {
     JUST_JOIN_IT
+}
+
+enum class JobCategory {
+    Total
 }

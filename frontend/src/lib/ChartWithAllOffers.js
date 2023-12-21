@@ -1,7 +1,7 @@
 const JUST_JOIN_IT = 'JUST_JOIN_IT';
 
-export async function fetchAllJobOffer() {
-	const url = "http://localhost:8080/api/v1/job-offer/" + JUST_JOIN_IT;
+export async function fetchAllJobOffer(jobCategory = 'Total') {
+	const url = `http://localhost:8080/api/v1/job-offer/${JUST_JOIN_IT}?jobCategory=${jobCategory}`;
 	const res = await fetch(url);
 
 	if (res.ok) {
@@ -12,11 +12,15 @@ export async function fetchAllJobOffer() {
 }
 
 function mapDataToChartJsFormat(requestData) {
+	let data = [];
+	for (const key in requestData) {
+		data.push({ x: key, y: requestData[key] })
+	}
+	console.log(data)
 	return {
-		labels: Object.keys(requestData),
 		datasets: [{
 			label: mapPortalConstToString(JUST_JOIN_IT),
-			data: Object.values(requestData),
+			data: data,
 			borderColor: mapPortalConstToColor(JUST_JOIN_IT),
 		}],
 	};
