@@ -1,2 +1,16 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    import ChartWithAllOffers from '$lib/ChartWithAllOffers.svelte';
+		import { fetchAllJobOffer } from '$lib/ChartWithAllOffers.js'
+		const allJobOfferPromise = fetchAllJobOffer();
+</script>
+
+<h1>Chart with all offers</h1>
+<div>
+	{#await allJobOfferPromise}
+		<p>fetching data</p>
+	{:then allJobOfferData}
+		<ChartWithAllOffers data={allJobOfferData} />
+	{:catch error}
+		<p style="color: red">{error.message}</p>
+	{/await}
+</div>
