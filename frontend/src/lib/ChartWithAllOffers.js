@@ -16,7 +16,6 @@ function mapDataToChartJsFormat(requestData) {
 	for (const key in requestData) {
 		data.push({ x: key, y: requestData[key] })
 	}
-	console.log(data)
 	return {
 		datasets: [{
 			label: mapPortalConstToString(JUST_JOIN_IT),

@@ -20,5 +20,7 @@ enum class JobPortal {
 }
 
 enum class JobCategory {
-    Total
+    Total,
+    Kotlin,
+    Php,
 }

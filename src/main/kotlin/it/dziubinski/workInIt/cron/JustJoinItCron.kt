@@ -12,27 +12,57 @@ import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
-const val JUST_JOIN_API_URL = "https://api.justjoin.it/v2"
-
 @Serializable
 data class JustJoinItCount(val count: Int)
 
 @Component
 @EnableScheduling
-class JustJoinItCron(private val jobOfferCountRepository: JobOfferCountRepository) {
+class JustJoinItCron(
+    private val jobOfferCountRepository: JobOfferCountRepository,
+    private val urlBuilder: JustJoinItUrlBuilder,
+) {
 
-    @Scheduled(cron = "0 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00
-    fun getOffersNumber() {
-        val url = "$JUST_JOIN_API_URL/user-panel/offers/count?city=Warszawa&withSalary=false&salaryCurrencies=PLN"
+    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
+    @Scheduled(cron = "0 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00:00
+    fun getTotalOffersNumber() {
+        val jobCategory = JobCategory.Total
+        val urlTotal = urlBuilder.apply { this.jobCategory = jobCategory; city = null }.toString()
+        sendResponseAndCreateJobOfferCountEntity(urlTotal, jobCategory)
+        val city = "Warszawa"
+        val urlWarsaw = urlBuilder.apply { this.city = city }.toString()
+        sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobCategory, city)
+    }
+
+    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
+    @Scheduled(cron = "1 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00:01
+    fun getKotlinOffersNumber() {
+        val jobCategory = JobCategory.Kotlin
+        val urlTotal = urlBuilder.apply { this.jobCategory = jobCategory; city = null }.toString()
+        sendResponseAndCreateJobOfferCountEntity(urlTotal, jobCategory)
+        val city = "Warszawa"
+        val urlWarsaw = urlBuilder.apply { this.city = city }.toString()
+        sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobCategory, city)
+    }
+
+    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
+    @Scheduled(cron = "2 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00:02
+    fun getPhpOffersNumber() {
+        val jobCategory = JobCategory.Php
+        val urlTotal = urlBuilder.apply { this.jobCategory = jobCategory; city = null }.toString()
+        sendResponseAndCreateJobOfferCountEntity(urlTotal, jobCategory)
+        val city = "Warszawa"
+        val urlWarsaw = urlBuilder.apply { this.city = city }.toString()
+        sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobCategory, city)
+    }
+
+    private fun sendResponseAndCreateJobOfferCountEntity(url: String, jobCategory: JobCategory, city: String? = null) {
         println(url)
-        url.httpGet().responseString { request, response, result ->
+        url.httpGet().responseString { _, _, result ->
             when (result) {
                 is Result.Success -> {
                     val data = result.value
-                    println(data)
                     val justJoinItCount = Json.decodeFromString<JustJoinItCount>(data)
-                    val newJobOfferCount = saveNewJobOfferCount(justJoinItCount.count)
-                    println("added new offer: " + newJobOfferCount.id)
+                    saveNewJobOfferCount(justJoinItCount.count, jobCategory, city)
                 }
 
                 is Result.Failure -> {
@@ -45,8 +75,8 @@ class JustJoinItCron(private val jobOfferCountRepository: JobOfferCountRepositor
 
     private fun saveNewJobOfferCount(
         offerCount: Int,
-        category: JobCategory = JobCategory.Total,
-        city: String? = null
+        category: JobCategory,
+        city: String? = null,
     ): JobOfferCount {
         val jobOfferCount = JobOfferCount(JobPortal.JUST_JOIN_IT, offerCount, category, city)
         jobOfferCountRepository.save(jobOfferCount)
