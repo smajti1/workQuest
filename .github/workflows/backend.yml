@@ -6,4 +6,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - run: ./gradlew test
+
+      - run: kotlinc -version
+
+      - name: Install kotlin
+        uses: fwilhe2/setup-kotlin@main
+        with:
+          version: "1.9.21"
+
+      - run: kotlinc -version
+
+      - name: Run tests
+        run: ./gradlew test
