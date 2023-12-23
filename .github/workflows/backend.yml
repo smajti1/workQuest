@@ -1,0 +1,9 @@
+name: Run backend test
+on: [ push ]
+jobs:
+  Backend-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: ./gradlew test

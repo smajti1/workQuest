@@ -30,10 +30,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     runtimeOnly("org.postgresql:postgresql")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    // js dependencies
-    implementation(npm("chart.js", ">= 4.4.1"))
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.kotest:kotest-runner-junit5:5.6.2")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3")
 }
 
 tasks.withType<KotlinCompile> {
