@@ -7,15 +7,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      - run: kotlinc -version && java --version
+      #- run: kotlinc -version && java --version
 
       - run: ./gradlew build
