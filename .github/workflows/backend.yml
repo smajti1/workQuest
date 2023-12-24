@@ -13,6 +13,6 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      #- run: kotlinc -version && java --version
+      #- run: kotlinc -version && java --version # Check kotlin/java version only uncomment when something not working
 
       - run: ./gradlew build
