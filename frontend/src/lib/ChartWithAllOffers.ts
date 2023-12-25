@@ -20,7 +20,6 @@ function mapDataToChartJsFormat(requestData) {
 		datasets: [{
 			label: mapPortalConstToString(JUST_JOIN_IT),
 			data: data,
-			borderColor: mapPortalConstToColor(JUST_JOIN_IT),
 		}],
 	};
 }
@@ -31,12 +30,4 @@ function mapPortalConstToString(portalConst) {
 			return 'JustJoin.it';
 	}
 	return 'Undefined';
-}
-
-function mapPortalConstToColor(portalConst) {
-	switch(portalConst) {
-		case JUST_JOIN_IT:
-			return 'rgb(75, 192, 192)';
-	}
-	return 'rgb(255, 159, 64)';
 }

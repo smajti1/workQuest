@@ -1,6 +1,6 @@
 <script>
     import ChartWithAllOffers from '$lib/ChartWithAllOffers.svelte';
-		import { fetchAllJobOffer } from '$lib/ChartWithAllOffers.js'
+		import { fetchAllJobOffer } from '$lib/ChartWithAllOffers.ts'
 		const allJobOfferPromise = fetchAllJobOffer();
 </script>
 

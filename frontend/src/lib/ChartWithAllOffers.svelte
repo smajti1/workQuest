@@ -8,6 +8,7 @@
 		LineElement,
 		Legend,
 		PointElement,
+		Tooltip,
 	} from 'chart.js';
 	import { onMount } from 'svelte';
 	export let data;
@@ -21,6 +22,7 @@
 			LinearScale,
 			Legend,
 			PointElement,
+			Tooltip,
 		);
 		const ctx = document.getElementById('myChart');
 
