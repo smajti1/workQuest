@@ -6,27 +6,29 @@ import io.kotest.matchers.string.shouldContain
 import it.dziubinski.workInIt.model.JobCategory
 
 class JustJoinItUrlBuilderUnitTest(
-    private val justJoinItUrlBuilder: JustJoinItUrlBuilder = JustJoinItUrlBuilder(),
+    private val justJoinItRequestBuilder: JustJoinItRequestBuilder = JustJoinItRequestBuilder(),
 ) : StringSpec({
 
     "should return url for total" {
-        justJoinItUrlBuilder.toString() shouldBe "https://api.justjoin.it/v2/user-panel/offers/count?withSalary=false&salaryCurrencies=PLN"
+        justJoinItRequestBuilder.build().url.toString() shouldBe "https://api.justjoin.it/v2/user-panel/offers/count?withSalary=false&salaryCurrencies=PLN"
     }
 
     "url should contain city name Warszawa" {
-        justJoinItUrlBuilder.apply { city = "Warszawa" }.toString() shouldContain "Warszawa"
+        justJoinItRequestBuilder.apply { city = "Warszawa" }.build().url.toString() shouldContain "Warszawa"
     }
 
     "url fo kotlin" {
-        justJoinItUrlBuilder.apply { jobCategory = JobCategory.Kotlin }.toString() shouldContain "&keywords[]=kotlin"
+        justJoinItRequestBuilder.apply { jobCategory = JobCategory.Kotlin }
+            .build().url.toString() shouldContain "&keywords[]=kotlin"
     }
 
     "url for PHP" {
-        justJoinItUrlBuilder.apply { jobCategory = JobCategory.Php }.toString() shouldContain "&categories[]=3"
+        justJoinItRequestBuilder.apply { jobCategory = JobCategory.Php }
+            .build().url.toString() shouldContain "&categories[]=3"
     }
 
     "url for job category and city" {
-        justJoinItUrlBuilder.apply { city = "Łomianki"; jobCategory = JobCategory.Php }
-            .toString() shouldBe "https://api.justjoin.it/v2/user-panel/offers/count?withSalary=false&salaryCurrencies=PLN&city=Łomianki&categories[]=3"
+        justJoinItRequestBuilder.apply { city = "Łomianki"; jobCategory = JobCategory.Php }
+            .build().url.toString() shouldBe "https://api.justjoin.it/v2/user-panel/offers/count?withSalary=false&salaryCurrencies=PLN&city=%C5%81omianki&categories[]=3"
     }
 })
