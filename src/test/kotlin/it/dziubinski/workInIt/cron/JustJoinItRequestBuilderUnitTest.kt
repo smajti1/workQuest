@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import it.dziubinski.workInIt.model.JobCategory
 
-class JustJoinItUrlBuilderUnitTest(
+class JustJoinItRequestBuilderUnitTest(
     private val justJoinItRequestBuilder: JustJoinItRequestBuilder = JustJoinItRequestBuilder(),
 ) : StringSpec({
 
