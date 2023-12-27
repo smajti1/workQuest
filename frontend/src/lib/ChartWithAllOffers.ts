@@ -26,6 +26,8 @@ function createChartDataset(requestData, jobCategory: string, city: string|null)
 	return {
 		label: mapPortalConstToString(JUST_JOIN_IT) + ' ' + jobCategory + (city ? ` - ${city}` : ''),
 		data: data,
+		pointRadius: 4,
+		jobOfferVariantIndex: 0,
 	};
 }
 

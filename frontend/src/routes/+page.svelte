@@ -5,8 +5,7 @@
 	const allJobOfferPromise = fetchJobOffer();
 </script>
 
-<h1>Chart with all offers</h1>
-<br />
+<h1>Chart with JustJoinIt offers</h1>
 <div class="container mx-auto">
 	{#await allJobOfferPromise}
 		<p>fetching data</p>

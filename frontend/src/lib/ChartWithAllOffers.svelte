@@ -28,7 +28,6 @@
 		);
 		const ctx = document.getElementById('myChart');
 
-		initializedData.jobOfferVariantIndex = 0;
 		chart = new Chart(ctx, {
 			type: 'line',
 			data: {
@@ -52,11 +51,11 @@
 	});
 </script>
 
-<div class="container mx-auto">
-	<div class="flex justify-center space-x-2">
+<div class="relative mx-auto">
+	<div class="scroll-px-10 snap-x scroll-px-4 snap-mandatory scroll-smooth flex gap-4 overflow-x-auto px-2 py-5 mb-2 lg:justify-center">
 		{#each $jobOfferVariantList as jobOfferVariant}
 			<button
-				class="chip {jobOfferVariant.selected ? 'variant-filled' : 'variant-filled-surface'}"
+				class="snap-center chip {jobOfferVariant.selected ? 'variant-filled' : 'variant-filled-surface'}"
 				on:click={() => { addOrRemoveDataset(chart, jobOfferVariant); }}
 				on:keypress
 			>
@@ -76,7 +75,6 @@
 			</button>
 		{/each}
 	</div>
-	<br />
 	<div id="chartContainer" class="rounded-md">
 		<canvas id="myChart"></canvas>
 	</div>
