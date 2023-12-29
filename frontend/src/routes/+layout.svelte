@@ -36,7 +36,8 @@
 	<svelte:fragment slot="sidebarLeft">
 		{#if leftSidebarVisible}
 			<AppRail>
-				<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>justJoinIt</AppRailAnchor>
+				<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>home</AppRailAnchor>
+				<AppRailAnchor href="/justJoinIt" selected={$page.url.pathname === '/justJoinIt'}>justJoinIt</AppRailAnchor>
 				<AppRailAnchor href="/noFluffJobs" selected={$page.url.pathname === '/noFluffJobs'}>noFluffJobs</AppRailAnchor>
 				<svelte:fragment slot="trail">
 					<AppRailAnchor href="https://github.com/smajti1/workInIt" target="_blank" title="Github smajti1/workInIt project">

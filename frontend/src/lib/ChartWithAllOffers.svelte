@@ -10,29 +10,30 @@
 		PointElement,
 		Tooltip,
 	} from 'chart.js';
-	import { onMount } from 'svelte';
-	import { jobOfferVariantList, addOrRemoveDataset, mapPortalConstToString } from '$lib/ChartWithAllOffers.js';
+	import { get } from 'svelte/store';
+	import { fetchJobOffer, addOrRemoveDataset, mapPortalConstToString } from '$lib/ChartWithAllOffers.js';
 
-	export let initializedData;
+	export let jobOfferVariantList;
+	const jobOfferPromise = fetchJobOffer(get(jobOfferVariantList)[0]);
 	let chart;
-	onMount(() => {
-		Chart.register(
-			Colors,
-			LineController,
-			LineElement,
-			CategoryScale,
-			LinearScale,
-			Legend,
-			PointElement,
-			Tooltip,
-		);
-		const ctx = document.getElementById('myChart');
 
-		chart = new Chart(ctx, {
+	Chart.register(
+		Colors,
+		LineController,
+		LineElement,
+		CategoryScale,
+		LinearScale,
+		Legend,
+		PointElement,
+		Tooltip,
+	);
+
+	function initializeChart(chartNode, jobOffer) {
+		chart = new Chart(chartNode, {
 			type: 'line',
 			data: {
 				datasets: [
-					initializedData,
+					jobOffer
 				],
 			},
 			options: {
@@ -48,15 +49,25 @@
 				},
 			},
 		});
-	});
+	};
 </script>
 
 <div class="relative mx-auto">
+{#await jobOfferPromise}
+	<p>
+		fetching data
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+				 class="inline animate-spin w-6 h-6">
+			<path stroke-linecap="round" stroke-linejoin="round"
+						d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+		</svg>
+	</p>
+{:then jobOffer}
 	<div class="scroll-px-10 snap-x scroll-px-4 snap-mandatory scroll-smooth flex gap-4 overflow-x-auto px-2 py-5 mb-2 lg:justify-center">
 		{#each $jobOfferVariantList as jobOfferVariant}
 			<button
 				class="snap-center chip {jobOfferVariant.selected ? 'variant-filled' : 'variant-filled-surface'}"
-				on:click={() => { addOrRemoveDataset(chart, jobOfferVariant); }}
+				on:click={() => { addOrRemoveDataset(jobOfferVariantList, chart, jobOfferVariant); }}
 				on:keypress
 			>
 				{#if jobOfferVariant.selected}
@@ -76,8 +87,11 @@
 		{/each}
 	</div>
 	<div id="chartContainer" class="rounded-md">
-		<canvas id="myChart"></canvas>
+		<canvas id="myChart" use:initializeChart={jobOffer}></canvas>
 	</div>
+{:catch error}
+	<p style="color: red">{error.message}</p>
+{/await}
 </div>
 
 <style>
