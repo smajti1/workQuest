@@ -50,7 +50,6 @@ class NoFluffJobsComCron(
     private val urlBuilder: NoFluffJobsComRequestBuilder,
 ) {
 
-    // @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
     @Scheduled(cron = "0 1 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:01:00
     fun getTotalOffersNumber() {
         val jobCategory = JobCategory.Total
@@ -61,7 +60,6 @@ class NoFluffJobsComCron(
         sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobCategory, city)
     }
 
-    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
     @Scheduled(cron = "1 1 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:01:01
     fun getKotlinOffersNumber() {
         val jobCategory = JobCategory.Kotlin
@@ -72,7 +70,6 @@ class NoFluffJobsComCron(
         sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobCategory, city)
     }
 
-    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
     @Scheduled(cron = "2 1 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:01:02
     fun getPhpOffersNumber() {
         val jobCategory = JobCategory.Php
@@ -113,5 +110,9 @@ class NoFluffJobsComCron(
         val jobOfferCount = JobOfferCount(JobPortal.NO_FLUFF_JOBS_COM, offerCount, category, city)
         jobOfferCountRepository.save(jobOfferCount)
         return jobOfferCount
+    }
+
+    fun getCronFunctionArray(): Array<() -> Unit> {
+        return arrayOf(::getTotalOffersNumber, ::getKotlinOffersNumber, ::getPhpOffersNumber)
     }
 }

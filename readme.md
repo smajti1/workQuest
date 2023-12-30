@@ -6,7 +6,9 @@ How to start
 
 Copy and edit `cp .env.example .env` with contain docker settings
 
-    ./gradlew bootRun
+To build project use `./gradlew build` next run `docker compose up --detach` and `dotenv java -jar build/libs/workInIt-${VERSION}.jar`
+
+Run the Spring Boot application directly from the source code without packaging it into a JAR `./gradlew bootRun`
 
 Backend run on http://localhost:8080
 

@@ -22,7 +22,6 @@ class JustJoinItCron(
     private val urlBuilder: JustJoinItRequestBuilder,
 ) {
 
-    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
     @Scheduled(cron = "0 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00:00
     fun getTotalOffersNumber() {
         val jobCategory = JobCategory.Total
@@ -33,7 +32,6 @@ class JustJoinItCron(
         sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobCategory, city)
     }
 
-    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
     @Scheduled(cron = "1 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00:01
     fun getKotlinOffersNumber() {
         val jobCategory = JobCategory.Kotlin
@@ -44,7 +42,6 @@ class JustJoinItCron(
         sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobCategory, city)
     }
 
-    //    @Scheduled(cron = "*/60 * * * * ?", zone = "Europe/Warsaw")
     @Scheduled(cron = "2 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00:02
     fun getPhpOffersNumber() {
         val jobCategory = JobCategory.Php
@@ -85,5 +82,9 @@ class JustJoinItCron(
         val jobOfferCount = JobOfferCount(JobPortal.JUST_JOIN_IT, offerCount, category, city)
         jobOfferCountRepository.save(jobOfferCount)
         return jobOfferCount
+    }
+
+    fun getCronFunctionArray(): Array<() -> Unit> {
+        return arrayOf(::getTotalOffersNumber, ::getKotlinOffersNumber, ::getPhpOffersNumber)
     }
 }
