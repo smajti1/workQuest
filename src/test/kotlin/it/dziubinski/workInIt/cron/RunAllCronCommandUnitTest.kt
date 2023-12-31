@@ -11,7 +11,8 @@ class RunAllCronCommandUnitTest(
 ) : StringSpec({
     val justJoinItCron = mockk<JustJoinItCron>()
     val noFluffJobsComCron = mockk<NoFluffJobsComCron>()
-    val runAllCronCommand = RunAllCronCommand(justJoinItCron, noFluffJobsComCron)
+    val solidJobsCron = mockk<SolidJobsCron>()
+    val runAllCronCommand = RunAllCronCommand(justJoinItCron, noFluffJobsComCron, solidJobsCron)
 
     "should run all cron methods" {
         every { justJoinItCron.getCronFunctionArray() } answers { callOriginal() }
@@ -22,6 +23,8 @@ class RunAllCronCommandUnitTest(
         every { noFluffJobsComCron.getTotalOffersNumber() } answers {}
         every { noFluffJobsComCron.getKotlinOffersNumber() } answers {}
         every { noFluffJobsComCron.getPhpOffersNumber() } answers {}
+        every { solidJobsCron.getCronFunctionArray() } answers { callOriginal() }
+        every { solidJobsCron.getOffersNumber() } answers {}
 
         runAllCronCommand.executeCommand()
 
@@ -33,7 +36,9 @@ class RunAllCronCommandUnitTest(
         verify(exactly = 1) { noFluffJobsComCron.getTotalOffersNumber() }
         verify(exactly = 1) { noFluffJobsComCron.getKotlinOffersNumber() }
         verify(exactly = 1) { noFluffJobsComCron.getPhpOffersNumber() }
+        verify(exactly = 1) { solidJobsCron.getCronFunctionArray() }
+        verify(exactly = 1) { solidJobsCron.getOffersNumber() }
 
-        confirmVerified(justJoinItCron, noFluffJobsComCron)
+        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron)
     }
 })

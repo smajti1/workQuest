@@ -39,3 +39,8 @@ in [start_production.sh](./frontend/start_production.sh)
 see more in https://kit.svelte.dev/docs/adapter-node
 
 To check if server is running execute `docker ps` command and to stop just run `docker stop workInIt`
+
+### Postgresql - db
+
+To connect use command `docker compose exec postgres-db psql --password --username=$DB_USERNAME`
+with data from `.env` file

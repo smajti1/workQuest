@@ -18,6 +18,7 @@ class JobOfferCount(
 enum class JobPortal {
     JUST_JOIN_IT,
     NO_FLUFF_JOBS_COM,
+    SOLID_JOBS,
 }
 
 enum class JobCategory {

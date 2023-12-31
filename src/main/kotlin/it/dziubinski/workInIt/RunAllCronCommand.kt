@@ -2,19 +2,21 @@ package it.dziubinski.workInIt
 
 import it.dziubinski.workInIt.cron.JustJoinItCron
 import it.dziubinski.workInIt.cron.NoFluffJobsComCron
+import it.dziubinski.workInIt.cron.SolidJobsCron
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 
 @ShellComponent
-open class RunAllCronCommand(
-    val test1Cron: JustJoinItCron,
-    val test2Cron: NoFluffJobsComCron,
+class RunAllCronCommand(
+    val justJoinItCron: JustJoinItCron,
+    val noFluffJobsComCron: NoFluffJobsComCron,
+    val solidJobsCron: SolidJobsCron,
 ) {
 
     @ShellMethod(key = ["runAllCron", "run-all-cron"])
     fun executeCommand(): String {
         var countCronFunctions = 0
-        val arrayOfCronFunctions = test1Cron.getCronFunctionArray() + test2Cron.getCronFunctionArray()
+        val arrayOfCronFunctions = justJoinItCron.getCronFunctionArray() + noFluffJobsComCron.getCronFunctionArray() + solidJobsCron.getCronFunctionArray()
         for (cronFunction in arrayOfCronFunctions) {
             println(cronFunction.toString())
             cronFunction.invoke()
