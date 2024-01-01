@@ -1,6 +1,7 @@
 package it.dziubinski.workInIt.cron
 
 import com.github.kittinunf.fuel.core.Request
+import com.github.kittinunf.fuel.core.extensions.cUrlString
 import com.github.kittinunf.result.Result
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobOfferCount
@@ -26,7 +27,7 @@ abstract class JobOfferCronAbstract(
         jobCategory: JobCategory,
         city: String?,
     ) {
-        println(request.url)
+        println(request.cUrlString())
         request.responseString { _, _, result ->
             when (result) {
                 is Result.Success -> {

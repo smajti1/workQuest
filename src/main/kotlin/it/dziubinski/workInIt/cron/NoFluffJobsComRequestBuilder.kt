@@ -24,6 +24,6 @@ class NoFluffJobsComRequestBuilder() : RequestBuilderInterface {
         if (this.city !== null && this.city!!.isNotEmpty()) {
             rawSearch += " city=${this.city}"
         }
-        return request.body("{\"rawSearch\":\"${rawSearch}\",\"pageSize\":0}").also { println(it) }
+        return request.body("{\"rawSearch\":\"${rawSearch}\",\"pageSize\":0}")
     }
 }

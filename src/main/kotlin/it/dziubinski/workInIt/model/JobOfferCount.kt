@@ -19,6 +19,7 @@ enum class JobPortal {
     JUST_JOIN_IT,
     NO_FLUFF_JOBS_COM,
     SOLID_JOBS,
+    BULLDOG_JOB,
 }
 
 enum class JobCategory {

@@ -2,6 +2,7 @@ package it.dziubinski.workInIt.cron
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
+import com.github.kittinunf.fuel.core.extensions.cUrlString
 import com.github.kittinunf.result.Result
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobOfferCount
@@ -41,23 +42,24 @@ class SolidJobsCron(
 
     @Scheduled(cron = "0 2 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:02:00
     fun getOffersNumber() {
-        println(SOLID_JOBS_API_URL)
-        Fuel.get(SOLID_JOBS_API_URL)
+        val request = Fuel.get(SOLID_JOBS_API_URL)
             .header(Headers.CONTENT_TYPE, "application/vnd.solidjobs.jobofferlist+json; charset=UTF-8")
             .header(Headers.ACCEPT, "application/vnd.solidjobs.jobofferlist+json, application/json, text/plain, */*")
-            .responseString { _, _, result ->
-                when (result) {
-                    is Result.Success -> {
-                        val data = result.value
-                        extracted(data)
-                    }
+        println(request.cUrlString())
 
-                    is Result.Failure -> {
-                        val ex = result.error.exception
-                        println("Error: $ex")
-                    }
+        request.responseString { _, _, result ->
+            when (result) {
+                is Result.Success -> {
+                    val data = result.value
+                    extracted(data)
+                }
+
+                is Result.Failure -> {
+                    val ex = result.error.exception
+                    println("Error: $ex")
                 }
             }
+        }
     }
 
     private fun extracted(responseData: String) {
