@@ -9,4 +9,8 @@
 		<span>(icon)</span>
 		<span>NoFluffJobs</span>
 	</a>
+	<a class="logo-item" href="/solidJobs">
+		<span>(icon)</span>
+		<span>solidJobs</span>
+	</a>
 </div>

@@ -35,6 +35,8 @@ export function mapPortalConstToString(portalConst: string) {
 			return 'JustJoin.it';
 		case 'NO_FLUFF_JOBS_COM':
 			return 'NoFluffJobs.com';
+		case 'SOLID_JOBS':
+			return 'SOLID.jobs';
 	}
 	return 'Undefined';
 }

@@ -39,6 +39,7 @@
 				<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>home</AppRailAnchor>
 				<AppRailAnchor href="/justJoinIt" selected={$page.url.pathname === '/justJoinIt'}>justJoinIt</AppRailAnchor>
 				<AppRailAnchor href="/noFluffJobs" selected={$page.url.pathname === '/noFluffJobs'}>noFluffJobs</AppRailAnchor>
+				<AppRailAnchor href="/solidJobs" selected={$page.url.pathname === '/solidJobs'}>solidJobs</AppRailAnchor>
 				<svelte:fragment slot="trail">
 					<AppRailAnchor href="https://github.com/smajti1/workInIt" target="_blank" title="Github smajti1/workInIt project">
 						<svelte:fragment slot="lead">

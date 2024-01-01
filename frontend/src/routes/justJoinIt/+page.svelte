@@ -13,7 +13,7 @@
 	]);
 </script>
 
-<h1>Chart with <a href="https://JustJoin.it" target="_blank">JustJoin.it</a> offers</h1>
+<h1>Chart with <a href="https://JustJoin.it" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">JustJoin.it</a> offers</h1>
 
 <div class="container mx-auto">
 	<ChartWithAllOffers jobOfferVariantList={jobOfferVariantList} />
