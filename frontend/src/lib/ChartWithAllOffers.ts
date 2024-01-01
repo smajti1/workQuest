@@ -37,6 +37,8 @@ export function mapPortalConstToString(portalConst: string) {
 			return 'NoFluffJobs.com';
 		case 'SOLID_JOBS':
 			return 'SOLID.jobs';
+		case 'BULLDOG_JOB':
+			return 'BulldogJob.pl';
 	}
 	return 'Undefined';
 }

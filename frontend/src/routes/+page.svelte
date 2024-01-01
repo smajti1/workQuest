@@ -13,4 +13,8 @@
 		<span>(icon)</span>
 		<span>solidJobs</span>
 	</a>
+	<a class="logo-item" href="/bulldogJob">
+		<span>(icon)</span>
+		<span>bulldogJob</span>
+	</a>
 </div>
