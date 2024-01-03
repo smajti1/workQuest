@@ -20,6 +20,7 @@ enum class JobPortal {
     NO_FLUFF_JOBS_COM,
     SOLID_JOBS,
     BULLDOG_JOB,
+    IN_HIRE_IO,
 }
 
 enum class JobCategory {

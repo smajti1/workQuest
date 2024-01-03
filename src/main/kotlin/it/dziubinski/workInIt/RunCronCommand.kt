@@ -1,9 +1,7 @@
 package it.dziubinski.workInIt
 
-import it.dziubinski.workInIt.cron.BulldogJobCron
-import it.dziubinski.workInIt.cron.JustJoinItCron
-import it.dziubinski.workInIt.cron.NoFluffJobsComCron
-import it.dziubinski.workInIt.cron.SolidJobsCron
+import it.dziubinski.workInIt.cron.*
+import it.dziubinski.workInIt.model.JobPortal
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import org.springframework.shell.standard.ShellOption
@@ -14,6 +12,7 @@ class RunCronCommand(
     val noFluffJobsComCron: NoFluffJobsComCron,
     val solidJobsCron: SolidJobsCron,
     val bulldogJobCron: BulldogJobCron,
+    val inHireIoCron: InHireIoCron,
 ) {
 
     @ShellMethod(key = ["runAllCron", "run-all-cron"])
@@ -22,7 +21,8 @@ class RunCronCommand(
         val arrayOfCronFunctions = justJoinItCron.getCronFunctionArray() +
                 noFluffJobsComCron.getCronFunctionArray() +
                 solidJobsCron.getCronFunctionArray() +
-                bulldogJobCron.getCronFunctionArray()
+                bulldogJobCron.getCronFunctionArray() +
+                inHireIoCron.getCronFunctionArray()
 
         for (cronFunction in arrayOfCronFunctions) {
             println(cronFunction.toString())
@@ -39,20 +39,21 @@ class RunCronCommand(
         disableSleepBetween: Boolean = false,
     ): String {
         val arrayOfCronFunctions = when (cronName) {
-            "justJoinItCron" -> justJoinItCron.getCronFunctionArray()
-            "noFluffJobsComCron" -> noFluffJobsComCron.getCronFunctionArray()
-            "solidJobsCron" -> solidJobsCron.getCronFunctionArray()
-            "bulldogJobCron" -> bulldogJobCron.getCronFunctionArray()
+            JobPortal.JUST_JOIN_IT.toString() -> justJoinItCron.getCronFunctionArray()
+            JobPortal.NO_FLUFF_JOBS_COM.toString() -> noFluffJobsComCron.getCronFunctionArray()
+            JobPortal.SOLID_JOBS.toString() -> solidJobsCron.getCronFunctionArray()
+            JobPortal.BULLDOG_JOB.toString() -> bulldogJobCron.getCronFunctionArray()
+            JobPortal.IN_HIRE_IO.toString() -> inHireIoCron.getCronFunctionArray()
             else -> null
         }
-        if (arrayOfCronFunctions != null) {
-            for (cronFunction in arrayOfCronFunctions) {
-                println(cronFunction.toString())
-                cronFunction.invoke()
-                if (!disableSleepBetween) Thread.sleep(2_000)
-            }
-            return "Done cron function :)"
+        if (arrayOfCronFunctions == null) {
+            return "Done but no cron with '$cronName' found! Choose one of " + JobPortal.entries.map { it.toString() }
         }
-        return "Done but no cron with '$cronName' found!:)"
+        for (cronFunction in arrayOfCronFunctions) {
+            println(cronFunction.toString())
+            cronFunction.invoke()
+            if (!disableSleepBetween) Thread.sleep(2_000)
+        }
+        return "Done cron function :)"
     }
 }

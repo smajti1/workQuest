@@ -17,4 +17,8 @@
 		<span>(icon)</span>
 		<span>bulldogJob</span>
 	</a>
+	<a class="logo-item" href="/inHireIo">
+		<span>(icon)</span>
+		<span>inHireIo</span>
+	</a>
 </div>

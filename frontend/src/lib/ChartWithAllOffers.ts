@@ -39,6 +39,8 @@ export function mapPortalConstToString(portalConst: string) {
 			return 'SOLID.jobs';
 		case 'BULLDOG_JOB':
 			return 'BulldogJob.pl';
+		case 'IN_HIRE_IO':
+			return 'InHire.io';
 	}
 	return 'Undefined';
 }

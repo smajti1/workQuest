@@ -10,7 +10,8 @@ class RunAllCronCommandUnitTest(
     val noFluffJobsComCron = mockk<NoFluffJobsComCron>()
     val solidJobsCron = mockk<SolidJobsCron>()
     val bulldogJobCron = mockk<BulldogJobCron>()
-    val runCronCommand = RunCronCommand(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron)
+    val inHireIoCron = mockk<InHireIoCron>()
+    val runCronCommand = RunCronCommand(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron)
 
     beforeEach {
         clearAllMocks()
@@ -31,6 +32,10 @@ class RunAllCronCommandUnitTest(
         every { bulldogJobCron.getTotalOffersNumber() } answers {}
         every { bulldogJobCron.getKotlinOffersNumber() } answers {}
         every { bulldogJobCron.getPhpOffersNumber() } answers {}
+        every { inHireIoCron.getCronFunctionArray() } answers { callOriginal() }
+        every { inHireIoCron.getTotalOffersNumber() } answers {}
+        every { inHireIoCron.getKotlinOffersNumber() } answers {}
+        every { inHireIoCron.getPhpOffersNumber() } answers {}
 
         runCronCommand.executeRunAllCron(true)
 
@@ -48,8 +53,12 @@ class RunAllCronCommandUnitTest(
         verify(exactly = 1) { bulldogJobCron.getTotalOffersNumber() }
         verify(exactly = 1) { bulldogJobCron.getKotlinOffersNumber() }
         verify(exactly = 1) { bulldogJobCron.getPhpOffersNumber() }
+        verify(exactly = 1) { inHireIoCron.getCronFunctionArray() }
+        verify(exactly = 1) { inHireIoCron.getTotalOffersNumber() }
+        verify(exactly = 1) { inHireIoCron.getKotlinOffersNumber() }
+        verify(exactly = 1) { inHireIoCron.getPhpOffersNumber() }
 
-        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron)
+        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron)
     }
 
     "should run one job portal cron" {
@@ -58,7 +67,7 @@ class RunAllCronCommandUnitTest(
         every { justJoinItCron.getKotlinOffersNumber() } answers {}
         every { justJoinItCron.getPhpOffersNumber() } answers {}
 
-        runCronCommand.executeSingleCron("justJoinItCron", true)
+        runCronCommand.executeSingleCron("JUST_JOIN_IT", true)
 
         verify(exactly = 1) { justJoinItCron.getCronFunctionArray() }
         verify(exactly = 1) { justJoinItCron.getTotalOffersNumber() }
@@ -67,8 +76,9 @@ class RunAllCronCommandUnitTest(
         verify(exactly = 0) { noFluffJobsComCron.getCronFunctionArray() }
         verify(exactly = 0) { solidJobsCron.getCronFunctionArray() }
         verify(exactly = 0) { bulldogJobCron.getCronFunctionArray() }
+        verify(exactly = 0) { inHireIoCron.getCronFunctionArray() }
 
-        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron)
+        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron)
     }
     "should not run one job portal cron because wrong cronName" {
         runCronCommand.executeSingleCron("wornCronName", true)
@@ -77,7 +87,8 @@ class RunAllCronCommandUnitTest(
         verify(exactly = 0) { noFluffJobsComCron.getCronFunctionArray() }
         verify(exactly = 0) { solidJobsCron.getCronFunctionArray() }
         verify(exactly = 0) { bulldogJobCron.getCronFunctionArray() }
+        verify(exactly = 0) { inHireIoCron.getCronFunctionArray() }
 
-        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron)
+        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron)
     }
 })
