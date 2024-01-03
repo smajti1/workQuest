@@ -37,11 +37,12 @@
 		{#if leftSidebarVisible}
 			<AppRail>
 				<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>home</AppRailAnchor>
-				<AppRailAnchor href="/justJoinIt" selected={$page.url.pathname === '/justJoinIt'}>justJoinIt</AppRailAnchor>
+				<AppRailAnchor href="/justJoinIt" selected={$page.url.pathname === '/justJoinIt'}>justJoin.it</AppRailAnchor>
 				<AppRailAnchor href="/noFluffJobs" selected={$page.url.pathname === '/noFluffJobs'}>noFluffJobs</AppRailAnchor>
-				<AppRailAnchor href="/solidJobs" selected={$page.url.pathname === '/solidJobs'}>solidJobs</AppRailAnchor>
+				<AppRailAnchor href="/solidJobs" selected={$page.url.pathname === '/solidJobs'}>solid.jobs</AppRailAnchor>
 				<AppRailAnchor href="/bulldogJob" selected={$page.url.pathname === '/bulldogJob'}>bulldogJob</AppRailAnchor>
-				<AppRailAnchor href="/inHireIo" selected={$page.url.pathname === '/inHireIo'}>inHireIo</AppRailAnchor>
+				<AppRailAnchor href="/inHireIo" selected={$page.url.pathname === '/inHireIo'}>inHire.io</AppRailAnchor>
+				<AppRailAnchor href="/pracujPl" selected={$page.url.pathname === '/pracujPl'}>Pracuj.pl</AppRailAnchor>
 				<svelte:fragment slot="trail">
 					<AppRailAnchor href="https://github.com/smajti1/workInIt" target="_blank" title="Github smajti1/workInIt project">
 						<svelte:fragment slot="lead">
