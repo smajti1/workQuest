@@ -32,17 +32,17 @@ function createChartDataset(requestData, jobOfferVariant: JobOfferVariantType) {
 export function mapPortalConstToString(portalConst: string) {
 	switch (portalConst) {
 		case 'JUST_JOIN_IT':
-			return 'JustJoin.it';
+			return 'justJoin.it';
 		case 'NO_FLUFF_JOBS_COM':
-			return 'NoFluffJobs.com';
+			return 'noFluffJobs.com';
 		case 'SOLID_JOBS':
-			return 'SOLID.jobs';
+			return 'solid.jobs';
 		case 'BULLDOG_JOB':
-			return 'BulldogJob.pl';
+			return 'bulldogJob.pl';
 		case 'IN_HIRE_IO':
-			return 'InHire.io';
+			return 'inHire.io';
 		case 'PRACUJ_PL':
-			return 'Pracuj.pl';
+			return 'it.pracuj.pl';
 	}
 	return 'Undefined';
 }

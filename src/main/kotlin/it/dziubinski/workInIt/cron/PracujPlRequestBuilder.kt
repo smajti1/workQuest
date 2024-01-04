@@ -21,8 +21,10 @@ class PracujPlRequestBuilder : RequestBuilderInterface {
             JobCategory.Kotlin -> "&itth=43"
             JobCategory.Php -> "&itth=40"
         }
-
-        url += if (this.city !== null && this.city!!.isNotEmpty()) "&wp=${this.city}" else ""
+        url += when (this.city) {
+            "Warsaw" -> "&wp=Warszawa"
+            else -> ""
+        }
 
         return Fuel.get(url).header(Headers.CONTENT_TYPE, "application/json")
     }

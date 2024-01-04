@@ -44,3 +44,10 @@ To check if server is running execute `docker ps` command and to stop just run `
 
 To connect use command `docker compose exec postgres-db psql --password --username=$DB_USERNAME`
 with data from `.env` file
+
+### Frontend links:
+
+- frontend framework https://svelte.dev
+- utility-first CSS framework https://tailwindcss.com
+- UI toolkit for Svelte and Tailwind https://www.skeleton.dev
+- SVG icons, by the makers of Tailwind CSS https://heroicons.com

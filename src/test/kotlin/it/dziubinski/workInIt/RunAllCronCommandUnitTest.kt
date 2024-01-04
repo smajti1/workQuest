@@ -1,8 +1,8 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt
 
 import io.kotest.core.spec.style.StringSpec
 import io.mockk.*
-import it.dziubinski.workInIt.RunCronCommand
+import it.dziubinski.workInIt.cron.*
 
 class RunAllCronCommandUnitTest(
 ) : StringSpec({

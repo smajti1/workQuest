@@ -22,7 +22,10 @@ class BulldogJobRequestBuilder() : RequestBuilderInterface {
             JobCategory.Kotlin -> "\\\"Kotlin\\\""
             JobCategory.Php -> "\\\"PHP\\\""
         }
-        val city = if (this.city !== null && this.city!!.isNotEmpty()) "\\\"${this.city}\\\"" else ""
+        val city = when (this.city) {
+            "Warsaw" -> "\\\"Warszawa\\\""
+            else -> ""
+        }
         return request.body("""{"query":"query searchJobs { searchJobs(filters: { skills: [$skill], city: [$city]}) { totalCount } }","operationName":"searchJobs"}""")
     }
 }

@@ -21,8 +21,9 @@ class NoFluffJobsComRequestBuilder() : RequestBuilderInterface {
             JobCategory.Kotlin -> "requirement=Kotlin"
             JobCategory.Php -> "requirement=PHP"
         }
-        if (this.city !== null && this.city!!.isNotEmpty()) {
-            rawSearch += " city=${this.city}"
+        rawSearch += when (this.city) {
+            "Warsaw" -> " city=Warszawa"
+            else -> ""
         }
         return request.body("{\"rawSearch\":\"${rawSearch}\",\"pageSize\":0}")
     }

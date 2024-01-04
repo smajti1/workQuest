@@ -14,8 +14,9 @@ class JustJoinItRequestBuilder() : RequestBuilderInterface {
 
     override fun build(): Request {
         var url = "${JUST_JOIN_API_URL}?withSalary=false&salaryCurrencies=PLN"
-        if (this.city !== null && this.city!!.isNotEmpty()) {
-            url += "&city=${this.city}"
+        url += when (this.city) {
+            "Warsaw" -> "&city=Warszawa"
+            else -> ""
         }
         url += when (this.jobCategory) {
             JobCategory.Total -> ""

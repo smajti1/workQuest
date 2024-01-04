@@ -17,16 +17,16 @@ class NoFluffJobsComRequestBuilderUnitTest(
     }
 
     "body should contain city name Warszawa" {
-        String(noFluffJobsComRequestBuilder.apply { city = "Warszawa" }.build().body.toByteArray()) shouldBe "{\"rawSearch\":\" city=Warszawa\",\"pageSize\":0}"
+        String(noFluffJobsComRequestBuilder.apply { city = "Warsaw" }.build().body.toByteArray()) shouldBe "{\"rawSearch\":\" city=Warszawa\",\"pageSize\":0}"
     }
 
-    "url fo city Warszawa and kotlin" {
-        String(noFluffJobsComRequestBuilder.apply { city = "Warszawa"; jobCategory = JobCategory.Kotlin }
+    "url fo city Warsaw and kotlin" {
+        String(noFluffJobsComRequestBuilder.apply { city = "Warsaw"; jobCategory = JobCategory.Kotlin }
             .build().body.toByteArray()) shouldBe "{\"rawSearch\":\"requirement=Kotlin city=Warszawa\",\"pageSize\":0}"
     }
 
-    "url fo city PHP" {
+    "url fo unknown city PHP" {
         String(noFluffJobsComRequestBuilder.apply { city = "Łomianki"; jobCategory = JobCategory.Php }
-            .build().body.toByteArray()) shouldBe "{\"rawSearch\":\"requirement=PHP city=Łomianki\",\"pageSize\":0}"
+            .build().body.toByteArray()) shouldBe "{\"rawSearch\":\"requirement=PHP\",\"pageSize\":0}"
     }
 })

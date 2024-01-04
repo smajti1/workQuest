@@ -79,7 +79,7 @@
 					</svg>
 				</span>
 				{/if}
-				<span class="capitalize">
+				<span>
 					{mapPortalConstToString(jobOfferVariant.jobPortal)}
 					: <strong>{jobOfferVariant.category}</strong>{jobOfferVariant.city ? ` - ${jobOfferVariant.city}` : ''}
 				</span>

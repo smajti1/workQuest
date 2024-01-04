@@ -16,7 +16,7 @@ abstract class JobOfferCronAbstract(
     protected fun createRequestsForJobPortalAndCategoryByCities(jobPortal: JobPortal, jobCategory: JobCategory) {
         val urlTotal = urlBuilder.apply { this.jobCategory = jobCategory; city = null }.build()
         sendResponseAndCreateJobOfferCountEntity(urlTotal, jobPortal, jobCategory, null)
-        val city = "Warszawa"
+        val city = "Warsaw"
         val urlWarsaw = urlBuilder.apply { this.city = city }.build()
         sendResponseAndCreateJobOfferCountEntity(urlWarsaw, jobPortal, jobCategory, city)
     }

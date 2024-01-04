@@ -3,11 +3,11 @@
 <div class="logo-cloud grid-cols-1 lg:!grid-cols-3 gap-1">
 	<a class="logo-item" href="/justJoinIt">
 		<span>(icon)</span>
-		<span>JustJoin.it</span>
+		<span>justJoin.it</span>
 	</a>
 	<a class="logo-item" href="/noFluffJobs">
 		<span>(icon)</span>
-		<span>NoFluffJobs</span>
+		<span>noFluffJobs</span>
 	</a>
 	<a class="logo-item" href="/solidJobs">
 		<span>(icon)</span>
@@ -23,6 +23,6 @@
 	</a>
 	<a class="logo-item" href="/pracujPl">
 		<span>(icon)</span>
-		<span>Pracuj.pl</span>
+		<span>it.pracuj.pl</span>
 	</a>
 </div>

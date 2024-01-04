@@ -23,7 +23,7 @@ class InHireIoRequestBuilder : RequestBuilderInterface {
             JobCategory.Php -> 4
         }
         val city = when (this.city) {
-            "Warszawa" -> 2
+            "Warsaw" -> 2
             else -> ""
         }
         return request.body("{\"city_ids\":[$city],\"it_technology_ids\":[$skill],\"include_undisclosed\":true}")

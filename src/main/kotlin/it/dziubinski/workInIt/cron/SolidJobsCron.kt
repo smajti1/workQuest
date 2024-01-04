@@ -67,22 +67,23 @@ class SolidJobsCron(
         val jobOfferCountTotal = solidJobsOffers.count()
         saveNewJobOfferCount(JobCategory.Total, city = null, jobOfferCountTotal)
 
-        val city = "Warszawa"
-        val jobOfferCountTotalWarsaw = solidJobsOffers.count { it.companyCity == city }
+        val city = "Warsaw"
+        val cityToSearchInSolidJobsRequest = "Warszawa"
+        val jobOfferCountTotalWarsaw = solidJobsOffers.count { it.companyCity == cityToSearchInSolidJobsRequest }
         saveNewJobOfferCount(JobCategory.Total, city, jobOfferCountTotalWarsaw)
 
         val jobOfferCountTotalKotlin =
             solidJobsOffers.filter { it1 -> it1.requiredSkills.any { it.name.contains(JobCategory.Kotlin.toString(), ignoreCase = true) } }
         saveNewJobOfferCount(JobCategory.Kotlin, city = null, jobOfferCountTotalKotlin.count())
 
-        val jobOfferCountTotalKotlinWarsaw = jobOfferCountTotalKotlin.count { it.companyCity == city }
+        val jobOfferCountTotalKotlinWarsaw = jobOfferCountTotalKotlin.count { it.companyCity == cityToSearchInSolidJobsRequest }
         saveNewJobOfferCount(JobCategory.Kotlin, city, jobOfferCountTotalKotlinWarsaw)
 
         val jobOfferCountTotalPhp =
             solidJobsOffers.filter { it.subCategory.contains(JobCategory.Php.toString(), ignoreCase = true) }
         saveNewJobOfferCount(JobCategory.Php, city = null, jobOfferCountTotalPhp.count())
 
-        val jobOfferCountTotalPhpWarsaw = jobOfferCountTotalPhp.count { it.companyCity == city }
+        val jobOfferCountTotalPhpWarsaw = jobOfferCountTotalPhp.count { it.companyCity == cityToSearchInSolidJobsRequest }
         saveNewJobOfferCount(JobCategory.Php, city, jobOfferCountTotalPhpWarsaw)
     }
 

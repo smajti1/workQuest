@@ -14,7 +14,7 @@ class JustJoinItRequestBuilderUnitTest(
     }
 
     "url should contain city name Warszawa" {
-        justJoinItRequestBuilder.apply { city = "Warszawa" }.build().url.toString() shouldContain "Warszawa"
+        justJoinItRequestBuilder.apply { city = "Warsaw" }.build().url.toString() shouldContain "Warszawa"
     }
 
     "url fo kotlin" {
@@ -29,6 +29,6 @@ class JustJoinItRequestBuilderUnitTest(
 
     "url for job category and city" {
         justJoinItRequestBuilder.apply { city = "Łomianki"; jobCategory = JobCategory.Php }
-            .build().url.toString() shouldBe "https://api.justjoin.it/v2/user-panel/offers/count?withSalary=false&salaryCurrencies=PLN&city=%C5%81omianki&categories[]=3"
+            .build().url.toString() shouldBe "https://api.justjoin.it/v2/user-panel/offers/count?withSalary=false&salaryCurrencies=PLN&categories[]=3"
     }
 })
