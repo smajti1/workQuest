@@ -22,6 +22,7 @@ enum class JobPortal {
     BULLDOG_JOB,
     IN_HIRE_IO,
     PRACUJ_PL,
+    INDEED_COM,
 }
 
 enum class JobCategory {

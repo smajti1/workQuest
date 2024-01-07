@@ -25,4 +25,8 @@
 		<span>(icon)</span>
 		<span>it.pracuj.pl</span>
 	</a>
+	<a class="logo-item" href="/indeedCom">
+		<span>(icon)</span>
+		<span>indeed.com</span>
+	</a>
 </div>

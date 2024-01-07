@@ -14,9 +14,10 @@ class RunCronCommand(
     val bulldogJobCron: BulldogJobCron,
     val inHireIoCron: InHireIoCron,
     val pracujPlCron: PracujPlCron,
+    val indeedComCron: IndeedComCron,
 ) {
 
-    @ShellMethod(key = ["runAllCron", "run-all-cron"])
+    @ShellMethod(key = ["runCronAll", "run-cron-all"])
     fun executeRunAllCron(disableSleepBetween: Boolean = false): String {
         var countCronFunctions = 0
         val arrayOfCronFunctions = justJoinItCron.getCronFunctionArray() +
@@ -24,7 +25,8 @@ class RunCronCommand(
                 solidJobsCron.getCronFunctionArray() +
                 bulldogJobCron.getCronFunctionArray() +
                 inHireIoCron.getCronFunctionArray() +
-                pracujPlCron.getCronFunctionArray()
+                pracujPlCron.getCronFunctionArray() +
+                indeedComCron.getCronFunctionArray()
 
         for (cronFunction in arrayOfCronFunctions) {
             println(cronFunction.toString())
@@ -47,6 +49,7 @@ class RunCronCommand(
             JobPortal.BULLDOG_JOB.toString() -> bulldogJobCron.getCronFunctionArray()
             JobPortal.IN_HIRE_IO.toString() -> inHireIoCron.getCronFunctionArray()
             JobPortal.PRACUJ_PL.toString() -> pracujPlCron.getCronFunctionArray()
+            JobPortal.INDEED_COM.toString() -> indeedComCron.getCronFunctionArray()
             else -> null
         }
         if (arrayOfCronFunctions == null) {

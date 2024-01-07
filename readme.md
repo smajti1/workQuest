@@ -45,6 +45,10 @@ To check if server is running execute `docker ps` command and to stop just run `
 To connect use command `docker compose exec postgres-db psql --password --username=$DB_USERNAME`
 with data from `.env` file
 
+### Backend links:
+
+- for scraping web use selenium with firefox driver https://github.com/mozilla/geckodriver
+
 ### Frontend links:
 
 - frontend framework https://svelte.dev
