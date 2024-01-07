@@ -1,7 +1,8 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.justJoinIt
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Request
+import it.dziubinski.workInIt.cron.RequestBuilderInterface
 import it.dziubinski.workInIt.model.JobCategory
 import org.springframework.stereotype.Component
 
@@ -13,7 +14,7 @@ class JustJoinItRequestBuilder() : RequestBuilderInterface {
     override var jobCategory: JobCategory = JobCategory.Total
 
     override fun build(): Request {
-        var url = "${JUST_JOIN_API_URL}?withSalary=false&salaryCurrencies=PLN"
+        var url = "$JUST_JOIN_API_URL?withSalary=false&salaryCurrencies=PLN"
         url += when (this.city) {
             "Warsaw" -> "&city=Warszawa"
             else -> ""

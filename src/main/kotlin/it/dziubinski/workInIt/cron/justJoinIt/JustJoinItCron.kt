@@ -1,5 +1,6 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.justJoinIt
 
+import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
@@ -17,7 +18,7 @@ data class JustJoinItCount(val count: Int)
 class JustJoinItCron(
     jobOfferCountRepository: JobOfferCountRepository,
     urlBuilder: JustJoinItRequestBuilder,
-) : JobOfferCronAbstract(jobOfferCountRepository, urlBuilder) {
+) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder) {
 
     @Scheduled(cron = "0 0 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:00:00
     fun getTotalOffersNumber() {

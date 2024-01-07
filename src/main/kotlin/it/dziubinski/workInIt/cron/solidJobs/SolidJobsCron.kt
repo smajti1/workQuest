@@ -1,4 +1,4 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.solidJobs
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers

@@ -2,6 +2,7 @@ package it.dziubinski.workInIt.cron
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import it.dziubinski.workInIt.cron.noFluffJobsCom.NoFluffJobsComRequestBuilder
 import it.dziubinski.workInIt.model.JobCategory
 
 class NoFluffJobsComRequestBuilderUnitTest(

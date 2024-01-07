@@ -1,6 +1,12 @@
 package it.dziubinski.workInIt
 
-import it.dziubinski.workInIt.cron.*
+import it.dziubinski.workInIt.cron.bulldogJob.BulldogJobCron
+import it.dziubinski.workInIt.cron.inHireIo.InHireIoCron
+import it.dziubinski.workInIt.cron.indeedCom.IndeedComCron
+import it.dziubinski.workInIt.cron.justJoinIt.JustJoinItCron
+import it.dziubinski.workInIt.cron.noFluffJobsCom.NoFluffJobsComCron
+import it.dziubinski.workInIt.cron.pracujPl.PracujPlCron
+import it.dziubinski.workInIt.cron.solidJobs.SolidJobsCron
 import it.dziubinski.workInIt.model.JobPortal
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod

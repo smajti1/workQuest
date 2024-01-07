@@ -1,5 +1,6 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.noFluffJobsCom
 
+import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
@@ -45,7 +46,7 @@ data class NoFluffJobsComCount(
 class NoFluffJobsComCron(
     jobOfferCountRepository: JobOfferCountRepository,
     urlBuilder: NoFluffJobsComRequestBuilder,
-) : JobOfferCronAbstract(jobOfferCountRepository, urlBuilder) {
+) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder) {
 
     @Scheduled(cron = "0 1 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:01:00
     fun getTotalOffersNumber() {

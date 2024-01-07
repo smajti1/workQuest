@@ -1,5 +1,6 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.inHireIo
 
+import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
@@ -25,7 +26,7 @@ data class InHireIoResponse(
 class InHireIoCron(
     jobOfferCountRepository: JobOfferCountRepository,
     urlBuilder: InHireIoRequestBuilder,
-) : JobOfferCronAbstract(jobOfferCountRepository, urlBuilder) {
+) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder) {
 
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 

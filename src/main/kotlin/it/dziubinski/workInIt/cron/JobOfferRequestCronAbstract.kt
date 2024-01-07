@@ -8,7 +8,7 @@ import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
 
-abstract class JobOfferCronAbstract(
+abstract class JobOfferRequestCronAbstract(
     private val jobOfferCountRepository: JobOfferCountRepository,
     private val urlBuilder: RequestBuilderInterface,
 ) {

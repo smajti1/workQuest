@@ -1,5 +1,6 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.bulldogJob
 
+import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
@@ -27,7 +28,7 @@ data class BulldogJobCronResponse(
 class BulldogJobCron(
     jobOfferCountRepository: JobOfferCountRepository,
     urlBuilder: BulldogJobRequestBuilder,
-) : JobOfferCronAbstract(jobOfferCountRepository, urlBuilder) {
+) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder) {
 
     @Scheduled(cron = "0 3 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:03:00
     fun getTotalOffersNumber() {

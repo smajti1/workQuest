@@ -1,5 +1,6 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.pracujPl
 
+import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
@@ -18,7 +19,7 @@ data class PracujPlResponse(
 class PracujPlCron(
     jobOfferCountRepository: JobOfferCountRepository,
     urlBuilder: PracujPlRequestBuilder,
-) : JobOfferCronAbstract(jobOfferCountRepository, urlBuilder) {
+) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder) {
 
     @Scheduled(cron = "0 5 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:05:00
     fun getTotalOffersNumber() {

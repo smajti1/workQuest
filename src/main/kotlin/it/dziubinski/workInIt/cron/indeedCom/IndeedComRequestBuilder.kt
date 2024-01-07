@@ -1,7 +1,8 @@
-package it.dziubinski.workInIt.cron
+package it.dziubinski.workInIt.cron.indeedCom
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Request
+import it.dziubinski.workInIt.cron.RequestBuilderInterface
 import it.dziubinski.workInIt.model.JobCategory
 import org.springframework.stereotype.Component
 

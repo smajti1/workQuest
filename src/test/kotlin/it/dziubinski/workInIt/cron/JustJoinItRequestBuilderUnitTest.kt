@@ -3,6 +3,7 @@ package it.dziubinski.workInIt.cron
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import it.dziubinski.workInIt.cron.justJoinIt.JustJoinItRequestBuilder
 import it.dziubinski.workInIt.model.JobCategory
 
 class JustJoinItRequestBuilderUnitTest(
