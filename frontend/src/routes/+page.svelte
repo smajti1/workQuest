@@ -29,4 +29,8 @@
 		<span>(icon)</span>
 		<span>indeed.com</span>
 	</a>
+	<a class="logo-item" href="/theProtocol">
+		<span>(icon)</span>
+		<span>theProtocol.it</span>
+	</a>
 </div>

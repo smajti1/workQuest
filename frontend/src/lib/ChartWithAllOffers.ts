@@ -45,6 +45,8 @@ export function mapPortalConstToString(portalConst: string) {
 			return 'it.pracuj.pl';
 		case 'INDEED_COM':
 			return 'indeed.com';
+		case 'THE_PROTOCOL':
+			return 'theProtocol.it';
 	}
 	return 'Undefined';
 }

@@ -9,6 +9,7 @@ import it.dziubinski.workInIt.cron.justJoinIt.JustJoinItCron
 import it.dziubinski.workInIt.cron.noFluffJobsCom.NoFluffJobsComCron
 import it.dziubinski.workInIt.cron.pracujPl.PracujPlCron
 import it.dziubinski.workInIt.cron.solidJobs.SolidJobsCron
+import it.dziubinski.workInIt.cron.theProtocol.TheProtocolCron
 
 class RunAllCronCommandUnitTest(
 ) : StringSpec({
@@ -19,7 +20,9 @@ class RunAllCronCommandUnitTest(
     val inHireIoCron = mockk<InHireIoCron>()
     val pracujPlCron = mockk<PracujPlCron>()
     val indeedComCron = mockk<IndeedComCron>()
-    val runCronCommand = RunCronCommand(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron, pracujPlCron, indeedComCron)
+    val theProtocolCron = mockk<TheProtocolCron>()
+    val runCronCommand =
+        RunCronCommand(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron, pracujPlCron, indeedComCron, theProtocolCron)
 
     beforeEach {
         clearAllMocks()
@@ -50,6 +53,8 @@ class RunAllCronCommandUnitTest(
         every { pracujPlCron.getPhpOffersNumber() } answers {}
         every { indeedComCron.getCronFunctionArray() } answers { callOriginal() }
         every { indeedComCron.getTotalOffersNumber() } answers {}
+        every { theProtocolCron.getCronFunctionArray() } answers { callOriginal() }
+        every { theProtocolCron.getTotalOffersNumber() } answers {}
 
         runCronCommand.executeRunAllCron(true)
 
@@ -77,8 +82,10 @@ class RunAllCronCommandUnitTest(
         verify(exactly = 1) { pracujPlCron.getPhpOffersNumber() }
         verify(exactly = 1) { indeedComCron.getCronFunctionArray() }
         verify(exactly = 1) { indeedComCron.getTotalOffersNumber() }
+        verify(exactly = 1) { theProtocolCron.getCronFunctionArray() }
+        verify(exactly = 1) { theProtocolCron.getTotalOffersNumber() }
 
-        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron, pracujPlCron, indeedComCron)
+        confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron, pracujPlCron, indeedComCron, theProtocolCron)
     }
 
     "should run one job portal cron" {
@@ -99,6 +106,7 @@ class RunAllCronCommandUnitTest(
         verify(exactly = 0) { inHireIoCron.getCronFunctionArray() }
         verify(exactly = 0) { pracujPlCron.getCronFunctionArray() }
         verify(exactly = 0) { indeedComCron.getCronFunctionArray() }
+        verify(exactly = 0) { theProtocolCron.getCronFunctionArray() }
 
         confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron)
     }
@@ -112,6 +120,7 @@ class RunAllCronCommandUnitTest(
         verify(exactly = 0) { inHireIoCron.getCronFunctionArray() }
         verify(exactly = 0) { pracujPlCron.getCronFunctionArray() }
         verify(exactly = 0) { indeedComCron.getCronFunctionArray() }
+        verify(exactly = 0) { theProtocolCron.getCronFunctionArray() }
 
         confirmVerified(justJoinItCron, noFluffJobsComCron, solidJobsCron, bulldogJobCron, inHireIoCron)
     }

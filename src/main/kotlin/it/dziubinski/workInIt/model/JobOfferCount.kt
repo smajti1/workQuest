@@ -23,6 +23,7 @@ enum class JobPortal {
     IN_HIRE_IO,
     PRACUJ_PL,
     INDEED_COM,
+    THE_PROTOCOL,
 }
 
 enum class JobCategory {
