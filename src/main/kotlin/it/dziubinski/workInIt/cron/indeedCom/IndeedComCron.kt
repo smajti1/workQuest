@@ -38,7 +38,7 @@ class IndeedComCron(
     }
 
     override fun getCountFromWebPage(driver: FirefoxDriver): Int {
-        val findElement = WebDriverWait(driver, Duration.ofSeconds(2)).until(
+        val findElement = WebDriverWait(driver, Duration.ofSeconds(5)).until(
             ExpectedConditions.presenceOfElementLocated(
                 By.cssSelector(
                     ".jobsearch-JobCountAndSortPane-jobCount > span"

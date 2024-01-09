@@ -46,6 +46,11 @@
 					colors: {
 						forceOverride: true,
 					},
+					tooltip: {
+						mode: 'index',
+						position: 'nearest',
+						intersect: false
+					},
 				},
 			},
 		});
