@@ -47,6 +47,8 @@ export function mapPortalConstToString(portalConst: string) {
 			return 'indeed.com';
 		case 'THE_PROTOCOL':
 			return 'theProtocol.it';
+		case 'STARTUP_JOBS':
+			return 'startupJobs.com';
 	}
 	return 'Undefined';
 }

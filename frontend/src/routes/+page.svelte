@@ -33,4 +33,8 @@
 		<span>(icon)</span>
 		<span>theProtocol.it</span>
 	</a>
+	<a class="logo-item" href="/startupJobs">
+		<span>(icon)</span>
+		<span>startupJobs.com</span>
+	</a>
 </div>

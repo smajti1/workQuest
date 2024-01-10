@@ -24,6 +24,7 @@ enum class JobPortal {
     PRACUJ_PL,
     INDEED_COM,
     THE_PROTOCOL,
+    STARTUP_JOBS,
 }
 
 enum class JobCategory {

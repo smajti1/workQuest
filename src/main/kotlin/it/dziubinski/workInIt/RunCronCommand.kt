@@ -7,6 +7,7 @@ import it.dziubinski.workInIt.cron.justJoinIt.JustJoinItCron
 import it.dziubinski.workInIt.cron.noFluffJobsCom.NoFluffJobsComCron
 import it.dziubinski.workInIt.cron.pracujPl.PracujPlCron
 import it.dziubinski.workInIt.cron.solidJobs.SolidJobsCron
+import it.dziubinski.workInIt.cron.startupJobs.StartupJobsCron
 import it.dziubinski.workInIt.cron.theProtocol.TheProtocolCron
 import it.dziubinski.workInIt.model.JobPortal
 import org.springframework.shell.standard.ShellComponent
@@ -25,6 +26,7 @@ class RunCronCommand(
     val pracujPlCron: PracujPlCron,
     val indeedComCron: IndeedComCron,
     val theProtocolCron: TheProtocolCron,
+    val startupJobsCron: StartupJobsCron,
 ) {
 
     @ShellMethod(key = ["runCronAll", "run-cron-all"])
@@ -38,7 +40,8 @@ class RunCronCommand(
                 inHireIoCron.getCronFunctionArray() +
                 pracujPlCron.getCronFunctionArray() +
                 indeedComCron.getCronFunctionArray() +
-                theProtocolCron.getCronFunctionArray()
+                theProtocolCron.getCronFunctionArray() +
+                startupJobsCron.getCronFunctionArray()
 
         for (cronFunction in arrayOfCronFunctions) {
             println(cronFunction.toString())
@@ -64,6 +67,7 @@ class RunCronCommand(
             JobPortal.PRACUJ_PL.toString() -> pracujPlCron.getCronFunctionArray()
             JobPortal.INDEED_COM.toString() -> indeedComCron.getCronFunctionArray()
             JobPortal.THE_PROTOCOL.toString() -> theProtocolCron.getCronFunctionArray()
+            JobPortal.STARTUP_JOBS.toString() -> startupJobsCron.getCronFunctionArray()
             else -> null
         }
         if (arrayOfCronFunctions == null) {

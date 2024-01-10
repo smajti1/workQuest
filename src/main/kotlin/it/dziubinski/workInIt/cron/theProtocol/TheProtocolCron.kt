@@ -8,11 +8,13 @@ import org.openqa.selenium.By
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.Duration
 
 @Component
+@EnableScheduling
 class TheProtocolCron(
     jobOfferCountRepository: JobOfferCountRepository,
     theProtocolRequestBuilder: TheProtocolRequestBuilder,

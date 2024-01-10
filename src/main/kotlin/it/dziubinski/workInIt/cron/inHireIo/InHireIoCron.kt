@@ -6,6 +6,7 @@ import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
@@ -23,6 +24,7 @@ data class InHireIoResponse(
 }
 
 @Component
+@EnableScheduling
 class InHireIoCron(
     jobOfferCountRepository: JobOfferCountRepository,
     urlBuilder: InHireIoRequestBuilder,
