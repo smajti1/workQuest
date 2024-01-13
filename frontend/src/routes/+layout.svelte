@@ -35,7 +35,7 @@
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
 		{#if leftSidebarVisible}
-			<AppRail>
+			<AppRail aspectRatio="aspect-[10/9]">
 				<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 							 stroke="currentColor" class="w-7 h-7 inline-block">
@@ -52,6 +52,7 @@
 				<AppRailAnchor href="/indeedCom" selected={$page.url.pathname === '/indeedCom'}>indeed.com</AppRailAnchor>
 				<AppRailAnchor href="/theProtocol" selected={$page.url.pathname === '/theProtocol'}>theProtocol</AppRailAnchor>
 				<AppRailAnchor href="/startupJobs" selected={$page.url.pathname === '/startupJobs'}>startupJobs</AppRailAnchor>
+				<AppRailAnchor href="/itLeaders" selected={$page.url.pathname === '/itLeaders'}>it-leaders</AppRailAnchor>
 				<svelte:fragment slot="trail">
 					<AppRailAnchor href="https://github.com/smajti1/workInIt" target="_blank" title="Github smajti1/workInIt project">
 						<svelte:fragment slot="lead">

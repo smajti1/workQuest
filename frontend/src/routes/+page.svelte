@@ -37,4 +37,8 @@
 		<span>(icon)</span>
 		<span>startupJobs.com</span>
 	</a>
+	<a class="logo-item" href="/itLeaders">
+		<span>(icon)</span>
+		<span>it-leaders.pl</span>
+	</a>
 </div>

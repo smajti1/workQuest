@@ -12,8 +12,7 @@ class JobOfferCount(
     val city: String?,
     @Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID = UUID.randomUUID(),
     val createdAt: LocalDateTime = LocalDateTime.now(),
-) {
-}
+)
 
 enum class JobPortal {
     JUST_JOIN_IT,
@@ -25,6 +24,7 @@ enum class JobPortal {
     INDEED_COM,
     THE_PROTOCOL,
     STARTUP_JOBS,
+    IT_LEADERS,
 }
 
 enum class JobCategory {

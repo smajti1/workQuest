@@ -3,6 +3,7 @@ package it.dziubinski.workInIt
 import it.dziubinski.workInIt.cron.bulldogJob.BulldogJobCron
 import it.dziubinski.workInIt.cron.inHireIo.InHireIoCron
 import it.dziubinski.workInIt.cron.indeedCom.IndeedComCron
+import it.dziubinski.workInIt.cron.itLeaders.ItLeadersCron
 import it.dziubinski.workInIt.cron.justJoinIt.JustJoinItCron
 import it.dziubinski.workInIt.cron.noFluffJobsCom.NoFluffJobsComCron
 import it.dziubinski.workInIt.cron.pracujPl.PracujPlCron
@@ -27,6 +28,7 @@ class RunCronCommand(
     val indeedComCron: IndeedComCron,
     val theProtocolCron: TheProtocolCron,
     val startupJobsCron: StartupJobsCron,
+    val itLeadersCron: ItLeadersCron,
 ) {
 
     @ShellMethod(key = ["runCronAll", "run-cron-all"])
@@ -41,7 +43,8 @@ class RunCronCommand(
                 pracujPlCron.getCronFunctionArray() +
                 indeedComCron.getCronFunctionArray() +
                 theProtocolCron.getCronFunctionArray() +
-                startupJobsCron.getCronFunctionArray()
+                startupJobsCron.getCronFunctionArray() +
+                itLeadersCron.getCronFunctionArray()
 
         for (cronFunction in arrayOfCronFunctions) {
             println(cronFunction.toString())
@@ -68,6 +71,7 @@ class RunCronCommand(
             JobPortal.INDEED_COM.toString() -> indeedComCron.getCronFunctionArray()
             JobPortal.THE_PROTOCOL.toString() -> theProtocolCron.getCronFunctionArray()
             JobPortal.STARTUP_JOBS.toString() -> startupJobsCron.getCronFunctionArray()
+            JobPortal.IT_LEADERS.toString() -> itLeadersCron.getCronFunctionArray()
             else -> null
         }
         if (arrayOfCronFunctions == null) {
