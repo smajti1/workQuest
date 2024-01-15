@@ -47,10 +47,11 @@ class RunCronCommand(
                 itLeadersCron.getCronFunctionArray()
 
         for (cronFunction in arrayOfCronFunctions) {
-            println(cronFunction.toString())
+            countCronFunctions++
+            println()
+            println("Running: ${cronFunction::class} $countCronFunctions/${arrayOfCronFunctions.size}")
             cronFunction.invoke()
             if (!disableSleepBetween) Thread.sleep(2_000)
-            countCronFunctions++
         }
         val duration = (System.currentTimeMillis() - startTime).toDuration(DurationUnit.MILLISECONDS)
         return "Done $countCronFunctions cron functions :) in: [" + duration.toHumanMinutesAndSeconds() + "]"
@@ -84,6 +85,6 @@ class RunCronCommand(
             if (!disableSleepBetween) Thread.sleep(2_000)
         }
         val duration = (System.currentTimeMillis() - startTime).toDuration(DurationUnit.MILLISECONDS)
-        return "Done cron function :) in: [" + duration.toHumanMinutesAndSeconds() + "]"
+        return "Done '$cronName' cron function :) in: [" + duration.toHumanMinutesAndSeconds() + "]"
     }
 }

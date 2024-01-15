@@ -12,34 +12,9 @@ import org.springframework.stereotype.Component
 
 @Serializable
 data class NoFluffJobsComCount(
-    val criteriaSearch: CriteriaSearch,
-    val postings: List<String>,
     val totalCount: Int,
     val totalPages: Int,
-    val exactMatchesPages: Int,
-    val rawSearch: String,
-    val locationCriteria: Boolean,
-    val divs: Int,
-    val additionalSearch: List<String>,
-) {
-    @Serializable
-    data class CriteriaSearch(
-        val country: List<String>,
-        val city: List<String>,
-        val more: List<String>,
-        val employment: List<String>,
-        val requirement: List<String>,
-        val salary: List<String>,
-        val jobPosition: List<String>,
-        val province: List<String>,
-        val company: List<String>,
-        val id: List<String>,
-        val category: List<String>,
-        val keyword: List<String>,
-        val jobLanguage: List<String>,
-        val seniority: List<String>,
-    )
-}
+)
 
 @Component
 @EnableScheduling
@@ -47,6 +22,8 @@ class NoFluffJobsComCron(
     jobOfferCountRepository: JobOfferCountRepository,
     urlBuilder: NoFluffJobsComRequestBuilder,
 ) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder) {
+
+    private val jsonFormat = Json { ignoreUnknownKeys = true }
 
     @Scheduled(cron = "0 1 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:01:00
     fun getTotalOffersNumber() {
@@ -68,8 +45,6 @@ class NoFluffJobsComCron(
     }
 
     override fun getCountFromRequest(responseData: String): Int {
-        val noFluffJobsComCount = Json.decodeFromString<NoFluffJobsComCount>(responseData)
-
-        return noFluffJobsComCount.totalCount
+        return jsonFormat.decodeFromString<NoFluffJobsComCount>(responseData).totalCount
     }
 }
