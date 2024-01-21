@@ -15,10 +15,10 @@ services:
   selenium-web:
     image: selenium/standalone-firefox:120.0
     restart: ${DOCKER_RESTART}
-    ports:
-    # - "4444:4444"
-    # To see what is happening inside the container, head to http://localhost:7900/?autoconnect=1&resize=scale&password=secret
-    # - "7900:7900" # also commend --headless to see anything
+    # ports:
+      # - "4444:4444"
+      # To see what is happening inside the container, head to http://localhost:7900/?autoconnect=1&resize=scale&password=secret
+      # - "7900:7900" # also commend --headless to see anything
 
   kotlin-backend:
     container_name: workinit-kotlin-backend
