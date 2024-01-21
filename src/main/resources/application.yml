@@ -13,3 +13,10 @@ spring:
     url: jdbc:postgresql://postgres-db:5432/${DB_DATABASE}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+server:
+  tomcat:
+    threads:
+      max: 10 # https://docs.spring.io/spring-boot/docs/3.2.1/reference/htmlsingle/#application-properties.server.server.tomcat.threads.max
+      min-spare: 2
+    max-connections: 10

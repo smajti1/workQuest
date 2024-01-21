@@ -16,14 +16,14 @@ services:
     image: selenium/standalone-firefox:120.0
     restart: ${DOCKER_RESTART}
     ports:
-      - "4444:4444"
-      # To see what is happening inside the container, head to http://localhost:7900/?autoconnect=1&resize=scale&password=secret
-      # - "7900:7900" # also commend --headless to see anything
+    # - "4444:4444"
+    # To see what is happening inside the container, head to http://localhost:7900/?autoconnect=1&resize=scale&password=secret
+    # - "7900:7900" # also commend --headless to see anything
 
   kotlin-backend:
     container_name: workinit-kotlin-backend
     image: eclipse-temurin:21-alpine
-    mem_limit: 500M
+    mem_limit: 400M
     stdin_open: true
     # tty: true
     restart: ${DOCKER_RESTART}
@@ -34,7 +34,7 @@ services:
       - ./.docker/.gradle:/root/.gradle:rw # gradle home cache directory
     command: >
       bash -c './gradlew clean build -x test -x jar \
-        && java -XX:+UseSerialGC -Xss512k -jar "./build/libs/workInIt-$(cat /var/www/build.gradle.kts | grep "version = " | grep -Eo "[0-9]+.[0-9]+.[0-9]+").jar"'
+        && java -XX:+UseSerialGC -Xss512k -Xms128m -Xmx384m -jar "./build/libs/workInIt-$(cat /var/www/build.gradle.kts | grep "version = " | grep -Eo "[0-9]+.[0-9]+.[0-9]+").jar"'
     ports:
       - "8080:8080"
     depends_on:
