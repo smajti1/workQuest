@@ -5,7 +5,7 @@ import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
 import org.openqa.selenium.By
-import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import org.springframework.scheduling.annotation.EnableScheduling
@@ -39,7 +39,7 @@ class TheProtocolCron(
         return arrayOf(::getTotalOffersNumber)
     }
 
-    override fun getCountFromWebPage(driver: FirefoxDriver): Int {
+    override fun getCountFromWebPage(driver: WebDriver): Int {
         val findElement = WebDriverWait(driver, Duration.ofSeconds(5)).until(
             ExpectedConditions.presenceOfElementLocated(
                 By.cssSelector(

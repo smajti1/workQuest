@@ -5,8 +5,12 @@ import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
-import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.firefox.FirefoxOptions
+import org.openqa.selenium.remote.RemoteWebDriver
+import java.net.URI
+
+const val SELENIUM_URL = "http://selenium-web:4444/wd/hub"
 
 abstract class JobOfferScrapWebPageCronAbstract(
     private val jobOfferCountRepository: JobOfferCountRepository,
@@ -17,7 +21,10 @@ abstract class JobOfferScrapWebPageCronAbstract(
         val firefoxOptions = FirefoxOptions()
         firefoxOptions.addArguments("--disable-gpu")
         firefoxOptions.addArguments("--headless")
-        val driver = FirefoxDriver(firefoxOptions)
+        firefoxOptions.addArguments("--no-sandbox")
+        firefoxOptions.addArguments("--disable-dev-shm-usage")
+        firefoxOptions.addArguments("--disable-extensions")
+        val driver = RemoteWebDriver(URI(SELENIUM_URL).toURL(), firefoxOptions)
 
         val request = urlBuilder.apply { this.jobCategory = jobCategory; this.city = city }.build()
         println(request.cUrlString())
@@ -26,12 +33,12 @@ abstract class JobOfferScrapWebPageCronAbstract(
         val offerCount = getCountFromWebPage(driver)
         saveNewJobOfferCount(jobPortal, jobCategory, city, offerCount)
 
-        driver.close()
+        driver.quit()
     }
 
     abstract fun getCronFunctionArray(): Array<() -> Unit>
 
-    abstract fun getCountFromWebPage(driver: FirefoxDriver): Int
+    abstract fun getCountFromWebPage(driver: WebDriver): Int
 
     private fun saveNewJobOfferCount(
         jobPortal: JobPortal,

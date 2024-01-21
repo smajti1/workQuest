@@ -6,13 +6,25 @@ How to start
 
 Copy and edit `cp .env.example .env` with contain docker settings
 
-To build project use `./gradlew build` next run `docker compose up --detach` and `dotenv java -jar build/libs/workInIt-${VERSION}.jar`
+#### Development
 
-Run the Spring Boot application directly from the source code without packaging it into a JAR `./gradlew bootRun`
+To build project use `./gradlew build` next run `docker compose up postgres-db --detach`, `docker compose up selenium -d`
+and `dotenv java -jar build/libs/workInIt-${VERSION}.jar`
+
+Run the Spring Boot application from phpstorm or directly from the source code without packaging it into a JAR `./gradlew bootRun`
+
+### Production
+
+Project will be build when docker start `docker compose up --detach`
+
+To attach to container use `./attach.sh` script (you may need to push enter to see `shell:>`) next you can use spring boot shell command:
+
+- `runCronAll` to run all cron task
+- `runCron JOB_PORTAL` to run only one (run `runCron` to list available options)
 
 Backend run on http://localhost:8080
 
-To see if docker run `docker compose ps`
+To see if docker run use `docker compose ps`, to see logs use `docker compose logs --follow`
 
 ### Frontend
 
