@@ -3,9 +3,9 @@ package it.dziubinski.workInIt
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["it.dziubinski.workInIt"])
 class WorkInItApplication
 
 fun main(args: Array<String>) {
-	runApplication<WorkInItApplication>(*args)
+    runApplication<WorkInItApplication>(*args)
 }

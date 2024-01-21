@@ -21,8 +21,9 @@ services:
       # - "7900:7900" # also commend --headless to see anything
 
   kotlin-backend:
-    container_name: kotlin-backend
+    container_name: workinit-kotlin-backend
     image: eclipse-temurin:21-alpine
+    mem_limit: 500M
     stdin_open: true
     # tty: true
     restart: ${DOCKER_RESTART}
@@ -32,8 +33,8 @@ services:
       - ./.gradle:/.gradle:rw # gradle downloading directory
       - ./.docker/.gradle:/root/.gradle:rw # gradle home cache directory
     command: >
-      bash -c './gradlew clean build -x test \
-        && java -jar "./build/libs/workInIt-$(cat /var/www/build.gradle.kts | grep "version = " | grep -Eo "[0-9]+.[0-9]+.[0-9]+").jar"'
+      bash -c './gradlew clean build -x test -x jar \
+        && java -XX:+UseSerialGC -Xss512k -jar "./build/libs/workInIt-$(cat /var/www/build.gradle.kts | grep "version = " | grep -Eo "[0-9]+.[0-9]+.[0-9]+").jar"'
     ports:
       - "8080:8080"
     depends_on:

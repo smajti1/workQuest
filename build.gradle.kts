@@ -26,7 +26,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.shell:spring-shell-starter")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.github.kittinunf.fuel:fuel:2.3.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")

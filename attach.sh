@@ -1,1 +1,1 @@
-docker attach kotlin-backend --sig-proxy=false
+docker attach workinit-kotlin-backend --sig-proxy=false
