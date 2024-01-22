@@ -18,16 +18,17 @@ abstract class JobOfferScrapWebPageCronAbstract(
 ) {
 
     fun scrapWebPageCountOffer(jobPortal: JobPortal, jobCategory: JobCategory, city: String?) {
+        val request = urlBuilder.apply { this.jobCategory = jobCategory; this.city = city }.build()
+        println(request.cUrlString())
+
         val firefoxOptions = FirefoxOptions()
         firefoxOptions.addArguments("--disable-gpu")
         firefoxOptions.addArguments("--headless")
         firefoxOptions.addArguments("--no-sandbox")
         firefoxOptions.addArguments("--disable-dev-shm-usage")
         firefoxOptions.addArguments("--disable-extensions")
+        
         val driver = RemoteWebDriver(URI(SELENIUM_URL).toURL(), firefoxOptions)
-
-        val request = urlBuilder.apply { this.jobCategory = jobCategory; this.city = city }.build()
-        println(request.cUrlString())
         driver.get(request.url.toString())
 
         val offerCount = getCountFromWebPage(driver)
