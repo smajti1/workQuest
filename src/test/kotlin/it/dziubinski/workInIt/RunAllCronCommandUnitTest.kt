@@ -44,68 +44,48 @@ class RunAllCronCommandUnitTest : StringSpec({
 
     "should run all cron methods" {
         every { justJoinItCron.getCronFunctionArray() } answers { callOriginal() }
-        every { justJoinItCron.getTotalOffersNumber() } answers {}
-        every { justJoinItCron.getKotlinOffersNumber() } answers {}
-        every { justJoinItCron.getPhpOffersNumber() } answers {}
+        every { justJoinItCron.getOffersNumber(0L) } answers { }
         every { noFluffJobsComCron.getCronFunctionArray() } answers { callOriginal() }
-        every { noFluffJobsComCron.getTotalOffersNumber() } answers {}
-        every { noFluffJobsComCron.getKotlinOffersNumber() } answers {}
-        every { noFluffJobsComCron.getPhpOffersNumber() } answers {}
+        every { noFluffJobsComCron.getOffersNumber(0L) } answers { }
         every { solidJobsCron.getCronFunctionArray() } answers { callOriginal() }
-        every { solidJobsCron.getOffersNumber() } answers {}
+        every { solidJobsCron.getOffersNumber(0L) } answers { }
         every { bulldogJobCron.getCronFunctionArray() } answers { callOriginal() }
-        every { bulldogJobCron.getTotalOffersNumber() } answers {}
-        every { bulldogJobCron.getKotlinOffersNumber() } answers {}
-        every { bulldogJobCron.getPhpOffersNumber() } answers {}
+        every { bulldogJobCron.getOffersNumber(0L) } answers { }
         every { inHireIoCron.getCronFunctionArray() } answers { callOriginal() }
-        every { inHireIoCron.getTotalOffersNumber() } answers {}
-        every { inHireIoCron.getKotlinOffersNumber() } answers {}
-        every { inHireIoCron.getPhpOffersNumber() } answers {}
+        every { inHireIoCron.getOffersNumber(0L) } answers { }
         every { pracujPlCron.getCronFunctionArray() } answers { callOriginal() }
-        every { pracujPlCron.getTotalOffersNumber() } answers {}
-        every { pracujPlCron.getKotlinOffersNumber() } answers {}
-        every { pracujPlCron.getPhpOffersNumber() } answers {}
+        every { pracujPlCron.getOffersNumber(0L) } answers { }
         every { indeedComCron.getCronFunctionArray() } answers { callOriginal() }
-        every { indeedComCron.getTotalOffersNumber() } answers {}
+        every { indeedComCron.getOffersNumber(0L) } answers { }
         every { theProtocolCron.getCronFunctionArray() } answers { callOriginal() }
-        every { theProtocolCron.getTotalOffersNumber() } answers {}
+        every { theProtocolCron.getOffersNumber(0L) } answers { }
         every { startupJobsCron.getCronFunctionArray() } answers { callOriginal() }
-        every { startupJobsCron.getOffersNumber() } answers {}
+        every { startupJobsCron.getOffersNumber(0L) } answers { }
         every { itLeadersCron.getCronFunctionArray() } answers { callOriginal() }
-        every { itLeadersCron.getOffersNumber() } answers {}
+        every { itLeadersCron.getOffersNumber(0L) } answers { }
 
         runCronCommand.executeRunAllCron(true)
 
         verify(exactly = 1) { justJoinItCron.getCronFunctionArray() }
-        verify(exactly = 1) { justJoinItCron.getTotalOffersNumber() }
-        verify(exactly = 1) { justJoinItCron.getKotlinOffersNumber() }
-        verify(exactly = 1) { justJoinItCron.getPhpOffersNumber() }
+        verify(exactly = 1) { justJoinItCron.getOffersNumber(0L) }
         verify(exactly = 1) { noFluffJobsComCron.getCronFunctionArray() }
-        verify(exactly = 1) { noFluffJobsComCron.getTotalOffersNumber() }
-        verify(exactly = 1) { noFluffJobsComCron.getKotlinOffersNumber() }
-        verify(exactly = 1) { noFluffJobsComCron.getPhpOffersNumber() }
+        verify(exactly = 1) { noFluffJobsComCron.getOffersNumber(0L) }
         verify(exactly = 1) { solidJobsCron.getCronFunctionArray() }
-        verify(exactly = 1) { solidJobsCron.getOffersNumber() }
+        verify(exactly = 1) { solidJobsCron.getOffersNumber(0L) }
         verify(exactly = 1) { bulldogJobCron.getCronFunctionArray() }
-        verify(exactly = 1) { bulldogJobCron.getTotalOffersNumber() }
-        verify(exactly = 1) { bulldogJobCron.getKotlinOffersNumber() }
-        verify(exactly = 1) { bulldogJobCron.getPhpOffersNumber() }
+        verify(exactly = 1) { bulldogJobCron.getOffersNumber(0L) }
         verify(exactly = 1) { inHireIoCron.getCronFunctionArray() }
-        verify(exactly = 1) { inHireIoCron.getTotalOffersNumber() }
-        verify(exactly = 1) { inHireIoCron.getKotlinOffersNumber() }
-        verify(exactly = 1) { inHireIoCron.getPhpOffersNumber() }
+        verify(exactly = 1) { inHireIoCron.getOffersNumber(0L) }
         verify(exactly = 1) { pracujPlCron.getCronFunctionArray() }
-        verify(exactly = 1) { pracujPlCron.getTotalOffersNumber() }
-        verify(exactly = 1) { pracujPlCron.getKotlinOffersNumber() }
-        verify(exactly = 1) { pracujPlCron.getPhpOffersNumber() }
+        verify(exactly = 1) { pracujPlCron.getOffersNumber(0L) }
         verify(exactly = 1) { indeedComCron.getCronFunctionArray() }
-        verify(exactly = 1) { indeedComCron.getTotalOffersNumber() }
+        verify(exactly = 1) { indeedComCron.getOffersNumber(0L) }
         verify(exactly = 1) { theProtocolCron.getCronFunctionArray() }
-        verify(exactly = 1) { theProtocolCron.getTotalOffersNumber() }
+        verify(exactly = 1) { theProtocolCron.getOffersNumber(0L) }
         verify(exactly = 1) { startupJobsCron.getCronFunctionArray() }
-        verify(exactly = 1) { startupJobsCron.getOffersNumber() }
+        verify(exactly = 1) { startupJobsCron.getOffersNumber(0L) }
         verify(exactly = 1) { itLeadersCron.getCronFunctionArray() }
-        verify(exactly = 1) { itLeadersCron.getOffersNumber() }
+        verify(exactly = 1) { itLeadersCron.getOffersNumber(0L) }
 
         confirmVerified(
             justJoinItCron,
@@ -123,16 +103,12 @@ class RunAllCronCommandUnitTest : StringSpec({
 
     "should run one job portal cron" {
         every { justJoinItCron.getCronFunctionArray() } answers { callOriginal() }
-        every { justJoinItCron.getTotalOffersNumber() } answers {}
-        every { justJoinItCron.getKotlinOffersNumber() } answers {}
-        every { justJoinItCron.getPhpOffersNumber() } answers {}
+        every { justJoinItCron.getOffersNumber(0L) } answers {}
 
         runCronCommand.executeSingleCron("JUST_JOIN_IT", true)
 
         verify(exactly = 1) { justJoinItCron.getCronFunctionArray() }
-        verify(exactly = 1) { justJoinItCron.getTotalOffersNumber() }
-        verify(exactly = 1) { justJoinItCron.getKotlinOffersNumber() }
-        verify(exactly = 1) { justJoinItCron.getPhpOffersNumber() }
+        verify(exactly = 1) { justJoinItCron.getOffersNumber(0L) }
         verify(exactly = 0) { noFluffJobsComCron.getCronFunctionArray() }
         verify(exactly = 0) { solidJobsCron.getCronFunctionArray() }
         verify(exactly = 0) { bulldogJobCron.getCronFunctionArray() }

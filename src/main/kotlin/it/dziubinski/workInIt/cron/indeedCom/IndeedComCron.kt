@@ -2,41 +2,39 @@ package it.dziubinski.workInIt.cron.indeedCom
 
 import it.dziubinski.workInIt.cron.JobOfferScrapWebPageCronAbstract
 import it.dziubinski.workInIt.model.JobCategory
+import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
-import org.springframework.scheduling.annotation.EnableScheduling
-import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.Duration
 
 @Component
-@EnableScheduling
 class IndeedComCron(
     jobOfferCountRepository: JobOfferCountRepository,
     indeedComRequestBuilder: IndeedComRequestBuilder,
 ) : JobOfferScrapWebPageCronAbstract(jobOfferCountRepository, indeedComRequestBuilder) {
 
-    @Scheduled(cron = "0 6 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:06:00
-    fun getTotalOffersNumber() {
+    fun getOffersNumber(sleepTime: Long) {
         for (jobCategory in JobCategory.entries) {
-            getOfferNumberForJobCategory(jobCategory)
+            getOfferNumberForJobCategory(jobCategory, sleepTime)
         }
     }
 
-    private fun getOfferNumberForJobCategory(jobCategory: JobCategory) {
-        val cities = listOf(null, "Warsaw")
-        for (city in cities) {
+    private fun getOfferNumberForJobCategory(jobCategory: JobCategory, sleepTime: Long) {
+        for (city in JobOfferCount.cities) {
             scrapWebPageCountOffer(JobPortal.INDEED_COM, jobCategory, city)
-            Thread.sleep(1_000)
+            if (sleepTime > 0) {
+                Thread.sleep(sleepTime)
+            }
         }
     }
 
-    override fun getCronFunctionArray(): Array<() -> Unit> {
-        return arrayOf(::getTotalOffersNumber)
+    override fun getCronFunctionArray(): Array<(Long) -> Unit> {
+        return arrayOf(::getOffersNumber)
     }
 
     override fun getCountFromWebPage(driver: WebDriver): Int {

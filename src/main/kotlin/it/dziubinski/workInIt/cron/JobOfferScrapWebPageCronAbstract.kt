@@ -15,7 +15,7 @@ const val SELENIUM_URL = "http://selenium-web:4444/wd/hub"
 abstract class JobOfferScrapWebPageCronAbstract(
     private val jobOfferCountRepository: JobOfferCountRepository,
     private val urlBuilder: RequestBuilderInterface,
-) {
+) : JobOfferCronInterface {
 
     fun scrapWebPageCountOffer(jobPortal: JobPortal, jobCategory: JobCategory, city: String?) {
         val request = urlBuilder.apply { this.jobCategory = jobCategory; this.city = city }.build()
@@ -46,8 +46,6 @@ abstract class JobOfferScrapWebPageCronAbstract(
 
         driver.quit()
     }
-
-    abstract fun getCronFunctionArray(): Array<() -> Unit>
 
     abstract fun getCountFromWebPage(driver: WebDriver): Int
 

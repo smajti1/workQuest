@@ -4,14 +4,13 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.core.extensions.cUrlString
 import com.github.kittinunf.result.Result
+import it.dziubinski.workInIt.cron.JobOfferCronInterface
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
 import it.dziubinski.workInIt.repository.JobOfferCountRepository
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import org.springframework.scheduling.annotation.EnableScheduling
-import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 @Serializable
@@ -33,15 +32,13 @@ data class SolidJobs(
 const val SOLID_JOBS_API_URL = "https://solid.jobs/api/offers?division=it&sortOrder=default"
 
 @Component
-@EnableScheduling
 class SolidJobsCron(
     val jobOfferCountRepository: JobOfferCountRepository,
-) {
+) : JobOfferCronInterface {
 
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 
-    @Scheduled(cron = "0 2 4 * * ?", zone = "Europe/Warsaw") // run every day at 4:02:00
-    fun getOffersNumber() {
+    fun getOffersNumber(sleepTime: Long) {
         val request = Fuel.get(SOLID_JOBS_API_URL)
             .header(Headers.CONTENT_TYPE, "application/vnd.solidjobs.jobofferlist+json; charset=UTF-8")
             .header(Headers.ACCEPT, "application/vnd.solidjobs.jobofferlist+json, application/json, text/plain, */*")
@@ -98,7 +95,7 @@ class SolidJobsCron(
         return jobOfferCount
     }
 
-    fun getCronFunctionArray(): Array<() -> Unit> {
+    override fun getCronFunctionArray(): Array<(Long) -> Unit> {
         return arrayOf(::getOffersNumber)
     }
 }

@@ -9,3 +9,5 @@ fun findImplementations(interfaceClass: KClass<out Any>): List<KClass<*>> {
 
     return subTypes.map { it.kotlin }
 }
+
+fun getReflections(): Reflections = Reflections("it.dziubinski.workInIt")

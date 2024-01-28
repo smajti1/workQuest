@@ -12,19 +12,29 @@ class JobOfferCount(
     val city: String?,
     @Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID = UUID.randomUUID(),
     val createdAt: LocalDateTime = LocalDateTime.now(),
-)
+) {
+    companion object {
+        val cities = listOf(null, "Warsaw")
+    }
+
+    init {
+        if (city != null && !cities.contains(city)) {
+            throw JobOfferCountInvalidCityException(city)
+        }
+    }
+}
 
 enum class JobPortal {
-    JUST_JOIN_IT,
-    NO_FLUFF_JOBS_COM,
-    SOLID_JOBS,
     BULLDOG_JOB,
     IN_HIRE_IO,
-    PRACUJ_PL,
     INDEED_COM,
-    THE_PROTOCOL,
-    STARTUP_JOBS,
     IT_LEADERS,
+    JUST_JOIN_IT,
+    NO_FLUFF_JOBS_COM,
+    PRACUJ_PL,
+    SOLID_JOBS,
+    STARTUP_JOBS,
+    THE_PROTOCOL,
 }
 
 enum class JobCategory {
@@ -32,3 +42,5 @@ enum class JobCategory {
     Kotlin,
     Php,
 }
+
+class JobOfferCountInvalidCityException(invalidCity: String) : Exception("Incorrect city '${invalidCity} given!")
