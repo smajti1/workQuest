@@ -8,7 +8,7 @@ import it.dziubinski.workInIt.cron.JobOfferCronInterface
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
-import it.dziubinski.workInIt.repository.JobOfferCountRepository
+import it.dziubinski.workInIt.service.JobOfferCountService
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component
@@ -33,12 +33,16 @@ const val SOLID_JOBS_API_URL = "https://solid.jobs/api/offers?division=it&sortOr
 
 @Component
 class SolidJobsCron(
-    val jobOfferCountRepository: JobOfferCountRepository,
+    private val jobOfferCountService: JobOfferCountService,
 ) : JobOfferCronInterface {
 
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 
     fun getOffersNumber(sleepTime: Long) {
+        val jobPortalCitiesByCategory = jobOfferCountService.getJobPortalAlreadyCreatedCitiesByCategoryMap(JobPortal.SOLID_JOBS)
+        if (jobPortalCitiesByCategory.count() >= JobOfferCount.cities.count() + JobPortal.entries.count()) {
+            return
+        }
         val request = Fuel.get(SOLID_JOBS_API_URL)
             .header(Headers.CONTENT_TYPE, "application/vnd.solidjobs.jobofferlist+json; charset=UTF-8")
             .header(Headers.ACCEPT, "application/vnd.solidjobs.jobofferlist+json, application/json, text/plain, */*")
@@ -48,7 +52,7 @@ class SolidJobsCron(
             when (result) {
                 is Result.Success -> {
                     val data = result.value
-                    extracted(data)
+                    extractDataFromRequestAndSaveOfferNumber(data, jobPortalCitiesByCategory)
                 }
 
                 is Result.Failure -> {
@@ -59,40 +63,40 @@ class SolidJobsCron(
         }
     }
 
-    private fun extracted(responseData: String) {
+    private fun extractDataFromRequestAndSaveOfferNumber(responseData: String, jobPortalCitiesByCategory: Map<JobCategory, List<String?>>) {
         val solidJobsOffers = jsonFormat.decodeFromString<List<SolidJobs>>(responseData)
-        val jobOfferCountTotal = solidJobsOffers.count()
-        saveNewJobOfferCount(JobCategory.Total, city = null, jobOfferCountTotal)
-
         val city = "Warsaw"
         val cityToSearchInSolidJobsRequest = "Warszawa"
-        val jobOfferCountTotalWarsaw = solidJobsOffers.count { it.companyCity == cityToSearchInSolidJobsRequest }
-        saveNewJobOfferCount(JobCategory.Total, city, jobOfferCountTotalWarsaw)
+
+        if (!jobPortalCitiesByCategory.any { it.key == JobCategory.Total && it.value.contains(null) }) {
+            val jobOfferCountTotal = solidJobsOffers.count()
+            jobOfferCountService.saveNewJobOfferCount(JobPortal.SOLID_JOBS, JobCategory.Total, city = null, jobOfferCountTotal)
+        }
+        if (!jobPortalCitiesByCategory.any { it.key == JobCategory.Total && it.value.contains(city) }) {
+            val jobOfferCountTotalWarsaw = solidJobsOffers.count { it.companyCity == cityToSearchInSolidJobsRequest }
+            jobOfferCountService.saveNewJobOfferCount(JobPortal.SOLID_JOBS, JobCategory.Total, city, jobOfferCountTotalWarsaw)
+        }
 
         val jobOfferCountTotalKotlin =
             solidJobsOffers.filter { it1 -> it1.requiredSkills.any { it.name.contains(JobCategory.Kotlin.toString(), ignoreCase = true) } }
-        saveNewJobOfferCount(JobCategory.Kotlin, city = null, jobOfferCountTotalKotlin.count())
-
-        val jobOfferCountTotalKotlinWarsaw = jobOfferCountTotalKotlin.count { it.companyCity == cityToSearchInSolidJobsRequest }
-        saveNewJobOfferCount(JobCategory.Kotlin, city, jobOfferCountTotalKotlinWarsaw)
+        if (!jobPortalCitiesByCategory.any { it.key == JobCategory.Kotlin && it.value.contains(null) }) {
+            jobOfferCountService.saveNewJobOfferCount(JobPortal.SOLID_JOBS, JobCategory.Kotlin, city = null, jobOfferCountTotalKotlin.count())
+        }
+        if (!jobPortalCitiesByCategory.any { it.key == JobCategory.Kotlin && it.value.contains(city) }) {
+            val jobOfferCountTotalKotlinWarsaw = jobOfferCountTotalKotlin.count { it.companyCity == cityToSearchInSolidJobsRequest }
+            jobOfferCountService.saveNewJobOfferCount(JobPortal.SOLID_JOBS, JobCategory.Kotlin, city, jobOfferCountTotalKotlinWarsaw)
+        }
 
         val jobOfferCountTotalPhp =
             solidJobsOffers.filter { it.subCategory.contains(JobCategory.Php.toString(), ignoreCase = true) }
-        saveNewJobOfferCount(JobCategory.Php, city = null, jobOfferCountTotalPhp.count())
+        if (!jobPortalCitiesByCategory.any { it.key == JobCategory.Php && it.value.contains(null) }) {
+            jobOfferCountService.saveNewJobOfferCount(JobPortal.SOLID_JOBS, JobCategory.Php, city = null, jobOfferCountTotalPhp.count())
+        }
 
-        val jobOfferCountTotalPhpWarsaw = jobOfferCountTotalPhp.count { it.companyCity == cityToSearchInSolidJobsRequest }
-        saveNewJobOfferCount(JobCategory.Php, city, jobOfferCountTotalPhpWarsaw)
-    }
-
-    private fun saveNewJobOfferCount(
-        category: JobCategory,
-        city: String?,
-        offerCount: Int,
-    ): JobOfferCount {
-        val jobOfferCount = JobOfferCount(JobPortal.SOLID_JOBS, offerCount, category, city)
-        jobOfferCountRepository.save(jobOfferCount)
-
-        return jobOfferCount
+        if (!jobPortalCitiesByCategory.any { it.key == JobCategory.Php && it.value.contains(city) }) {
+            val jobOfferCountTotalPhpWarsaw = jobOfferCountTotalPhp.count { it.companyCity == cityToSearchInSolidJobsRequest }
+            jobOfferCountService.saveNewJobOfferCount(JobPortal.SOLID_JOBS, JobCategory.Php, city, jobOfferCountTotalPhpWarsaw)
+        }
     }
 
     override fun getCronFunctionArray(): Array<(Long) -> Unit> {

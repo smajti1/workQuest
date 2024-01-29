@@ -2,7 +2,7 @@ package it.dziubinski.workInIt.cron.pracujPl
 
 import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobPortal
-import it.dziubinski.workInIt.repository.JobOfferCountRepository
+import it.dziubinski.workInIt.service.JobOfferCountService
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component
@@ -15,9 +15,9 @@ data class PracujPlResponse(
 
 @Component
 class PracujPlCron(
-    jobOfferCountRepository: JobOfferCountRepository,
+    jobOfferCountService: JobOfferCountService,
     urlBuilder: PracujPlRequestBuilder,
-) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder, JobPortal.PRACUJ_PL) {
+) : JobOfferRequestCronAbstract(jobOfferCountService, urlBuilder, JobPortal.PRACUJ_PL) {
 
     fun getOffersNumber(sleepTime: Long) {
         createRequestsForJobPortalAndCategoryByCities(sleepTime)

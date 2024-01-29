@@ -2,7 +2,7 @@ package it.dziubinski.workInIt.cron.inHireIo
 
 import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobPortal
-import it.dziubinski.workInIt.repository.JobOfferCountRepository
+import it.dziubinski.workInIt.service.JobOfferCountService
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component
@@ -22,9 +22,9 @@ data class InHireIoResponse(
 
 @Component
 class InHireIoCron(
-    jobOfferCountRepository: JobOfferCountRepository,
+    jobOfferCountService: JobOfferCountService,
     urlBuilder: InHireIoRequestBuilder,
-) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder, JobPortal.IN_HIRE_IO) {
+) : JobOfferRequestCronAbstract(jobOfferCountService, urlBuilder, JobPortal.IN_HIRE_IO) {
 
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 

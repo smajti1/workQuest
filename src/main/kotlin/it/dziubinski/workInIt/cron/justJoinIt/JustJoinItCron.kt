@@ -2,7 +2,7 @@ package it.dziubinski.workInIt.cron.justJoinIt
 
 import it.dziubinski.workInIt.cron.JobOfferRequestCronAbstract
 import it.dziubinski.workInIt.model.JobPortal
-import it.dziubinski.workInIt.repository.JobOfferCountRepository
+import it.dziubinski.workInIt.service.JobOfferCountService
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component
@@ -12,9 +12,9 @@ data class JustJoinItCount(val count: Int)
 
 @Component
 class JustJoinItCron(
-    jobOfferCountRepository: JobOfferCountRepository,
+    jobOfferCountService: JobOfferCountService,
     urlBuilder: JustJoinItRequestBuilder,
-) : JobOfferRequestCronAbstract(jobOfferCountRepository, urlBuilder, JobPortal.JUST_JOIN_IT) {
+) : JobOfferRequestCronAbstract(jobOfferCountService, urlBuilder, JobPortal.JUST_JOIN_IT) {
 
     fun getOffersNumber(sleepTime: Long) {
         createRequestsForJobPortalAndCategoryByCities(sleepTime)

@@ -59,7 +59,7 @@ with data from `.env` file
 
 ### Backend links:
 
-- for scraping web use selenium with firefox driver https://github.com/mozilla/geckodriver
+- for scraping web project use selenium https://www.selenium.dev
 
 ### Frontend links:
 

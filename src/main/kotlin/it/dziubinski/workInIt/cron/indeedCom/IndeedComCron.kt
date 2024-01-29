@@ -1,10 +1,8 @@
 package it.dziubinski.workInIt.cron.indeedCom
 
 import it.dziubinski.workInIt.cron.JobOfferScrapWebPageCronAbstract
-import it.dziubinski.workInIt.model.JobCategory
-import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
-import it.dziubinski.workInIt.repository.JobOfferCountRepository
+import it.dziubinski.workInIt.service.JobOfferCountService
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.ui.ExpectedConditions
@@ -14,23 +12,12 @@ import java.time.Duration
 
 @Component
 class IndeedComCron(
-    jobOfferCountRepository: JobOfferCountRepository,
+    jobOfferCountService: JobOfferCountService,
     indeedComRequestBuilder: IndeedComRequestBuilder,
-) : JobOfferScrapWebPageCronAbstract(jobOfferCountRepository, indeedComRequestBuilder) {
+) : JobOfferScrapWebPageCronAbstract(jobOfferCountService, indeedComRequestBuilder, JobPortal.INDEED_COM) {
 
     fun getOffersNumber(sleepTime: Long) {
-        for (jobCategory in JobCategory.entries) {
-            getOfferNumberForJobCategory(jobCategory, sleepTime)
-        }
-    }
-
-    private fun getOfferNumberForJobCategory(jobCategory: JobCategory, sleepTime: Long) {
-        for (city in JobOfferCount.cities) {
-            scrapWebPageCountOffer(JobPortal.INDEED_COM, jobCategory, city)
-            if (sleepTime > 0) {
-                Thread.sleep(sleepTime)
-            }
-        }
+        scrapWebPageForJobPortalAndCategoryByCities(sleepTime)
     }
 
     override fun getCronFunctionArray(): Array<(Long) -> Unit> {

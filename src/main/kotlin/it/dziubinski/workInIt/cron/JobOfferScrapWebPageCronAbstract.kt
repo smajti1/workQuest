@@ -4,7 +4,7 @@ import com.github.kittinunf.fuel.core.extensions.cUrlString
 import it.dziubinski.workInIt.model.JobCategory
 import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
-import it.dziubinski.workInIt.repository.JobOfferCountRepository
+import it.dziubinski.workInIt.service.JobOfferCountService
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.remote.RemoteWebDriver
@@ -13,11 +13,37 @@ import java.net.URI
 const val SELENIUM_URL = "http://selenium-web:4444/wd/hub"
 
 abstract class JobOfferScrapWebPageCronAbstract(
-    private val jobOfferCountRepository: JobOfferCountRepository,
+    private val jobOfferCountService: JobOfferCountService,
     private val urlBuilder: RequestBuilderInterface,
+    private val jobPortal: JobPortal,
+    private var sleepTime: Long = 1_000,
 ) : JobOfferCronInterface {
 
-    fun scrapWebPageCountOffer(jobPortal: JobPortal, jobCategory: JobCategory, city: String?) {
+    fun scrapWebPageForJobPortalAndCategoryByCities(sleepTime: Long) {
+        this.sleepTime = sleepTime
+        val jobPortalCitiesByCategory = jobOfferCountService.getJobPortalAlreadyCreatedCitiesByCategoryMap(this.jobPortal)
+        for (jobCategory in JobCategory.entries) {
+            if (jobPortalCitiesByCategory[jobCategory]?.count() == JobOfferCount.cities.count()) {
+                continue
+            }
+
+            getOfferNumberForJobCategory(jobCategory, jobPortalCitiesByCategory[jobCategory] ?: emptyList())
+        }
+    }
+
+    private fun getOfferNumberForJobCategory(jobCategory: JobCategory, citiesToSkip: List<String?>) {
+        for (city in JobOfferCount.cities) {
+            if (citiesToSkip.contains(city)) {
+                continue
+            }
+            scrapWebPageCountOffer(jobCategory, city)
+            if (this.sleepTime > 0) {
+                Thread.sleep(this.sleepTime)
+            }
+        }
+    }
+
+    private fun scrapWebPageCountOffer(jobCategory: JobCategory, city: String?) {
         val request = urlBuilder.apply { this.jobCategory = jobCategory; this.city = city }.build()
         println(request.cUrlString())
 
@@ -40,7 +66,7 @@ abstract class JobOfferScrapWebPageCronAbstract(
         driver.get(request.url.toString())
 
         val offerCount = getCountFromWebPage(driver)
-        saveNewJobOfferCount(jobPortal, jobCategory, city, offerCount)
+        jobOfferCountService.saveNewJobOfferCount(this.jobPortal, jobCategory, city, offerCount)
         // val screenshot = driver.getScreenshotAs(OutputType.FILE)
         // FileUtils.copyFile(screenshot, File("screenshots/${LocalDate.now()}-${jobPortal}-${jobCategory}-${city}.png"))
 
@@ -48,16 +74,4 @@ abstract class JobOfferScrapWebPageCronAbstract(
     }
 
     abstract fun getCountFromWebPage(driver: WebDriver): Int
-
-    private fun saveNewJobOfferCount(
-        jobPortal: JobPortal,
-        category: JobCategory,
-        city: String?,
-        offerCount: Int,
-    ): JobOfferCount {
-        val jobOfferCount = JobOfferCount(jobPortal, offerCount, category, city)
-        jobOfferCountRepository.save(jobOfferCount)
-
-        return jobOfferCount
-    }
 }

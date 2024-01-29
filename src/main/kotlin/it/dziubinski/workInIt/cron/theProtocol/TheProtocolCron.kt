@@ -1,10 +1,8 @@
 package it.dziubinski.workInIt.cron.theProtocol
 
 import it.dziubinski.workInIt.cron.JobOfferScrapWebPageCronAbstract
-import it.dziubinski.workInIt.model.JobCategory
-import it.dziubinski.workInIt.model.JobOfferCount
 import it.dziubinski.workInIt.model.JobPortal
-import it.dziubinski.workInIt.repository.JobOfferCountRepository
+import it.dziubinski.workInIt.service.JobOfferCountService
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.ui.ExpectedConditions
@@ -14,23 +12,12 @@ import java.time.Duration
 
 @Component
 class TheProtocolCron(
-    jobOfferCountRepository: JobOfferCountRepository,
+    jobOfferCountService: JobOfferCountService,
     theProtocolRequestBuilder: TheProtocolRequestBuilder,
-) : JobOfferScrapWebPageCronAbstract(jobOfferCountRepository, theProtocolRequestBuilder) {
+) : JobOfferScrapWebPageCronAbstract(jobOfferCountService, theProtocolRequestBuilder, JobPortal.THE_PROTOCOL) {
 
     fun getOffersNumber(sleepTime: Long) {
-        for (jobCategory in JobCategory.entries) {
-            getOfferNumberForJobCategory(jobCategory, sleepTime)
-        }
-    }
-
-    private fun getOfferNumberForJobCategory(jobCategory: JobCategory, sleepTime: Long) {
-        for (city in JobOfferCount.cities) {
-            scrapWebPageCountOffer(JobPortal.THE_PROTOCOL, jobCategory, city)
-            if (sleepTime > 0) {
-                Thread.sleep(sleepTime)
-            }
-        }
+        scrapWebPageForJobPortalAndCategoryByCities(sleepTime)
     }
 
     override fun getCronFunctionArray(): Array<(Long) -> Unit> {
