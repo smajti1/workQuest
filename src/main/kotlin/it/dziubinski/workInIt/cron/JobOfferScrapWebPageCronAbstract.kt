@@ -61,6 +61,8 @@ abstract class JobOfferScrapWebPageCronAbstract(
         options.addArguments("--disable-dev-shm-usage")
         options.addArguments("--disable-extensions")
         options.addArguments("--disable-gpu")
+        options.addArguments("--ignore-certificate-errors")
+        options.addArguments("--ignore-ssl-errors")
 
         val driver = RemoteWebDriver(URI(SELENIUM_URL).toURL(), options)
         driver.get(request.url.toString())
