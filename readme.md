@@ -6,14 +6,7 @@ How to start
 
 Copy and edit `cp .env.example .env` with contain docker settings
 
-#### Development
-
-To build project use `./gradlew build` next run `docker compose up postgres-db --detach`, `docker compose up selenium -d`
-and `dotenv java -jar build/libs/workInIt-${VERSION}.jar`
-
-Run the Spring Boot application from phpstorm or directly from the source code without packaging it into a JAR `./gradlew bootRun`
-
-### Production
+Copy or create newrelic config file `newrelic/newrelic.yml` copy from `build/libs/newrelic` and set `license_key`, `app_name`
 
 Project will be build when docker start `docker compose up --detach`
 
@@ -60,6 +53,7 @@ with data from `.env` file
 ### Backend links:
 
 - for scraping web project use selenium https://www.selenium.dev
+- newrelic logs https://newrelic.com
 
 ### Frontend links:
 

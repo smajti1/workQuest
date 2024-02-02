@@ -41,3 +41,5 @@ out/
 ### project ignore files
 .env
 spring-shell.log
+
+newrelic/*
