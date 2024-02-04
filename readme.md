@@ -2,6 +2,17 @@
 
 How to start
 
+#### Start server
+
+This project use [caddy](https://caddyserver.com/docs) as a server and reverse proxy
+
+You may need to create external docker network (if not exist)
+
+    docker network create caddy
+
+To work with domain use caddy reverse_proxy [caddy-docker-proxy](https://github.com/lucaslorentz/caddy-docker-proxy)
+on development server should run on https://in.localhost next:
+
 ### Backend
 
 Copy and edit `cp .env.example .env` with contain docker settings
