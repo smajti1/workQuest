@@ -10,7 +10,7 @@ class NoFluffJobsComRequestBuilderUnitTest(
 ) : StringSpec({
 
     "should return url for total" {
-        noFluffJobsComRequestBuilder.build().url.toString() shouldBe "https://nofluffjobs.com/api/search/posting?pageSize=0&salaryCurrency=PLN&salaryPeriod=month&region=pl"
+        noFluffJobsComRequestBuilder.build().url.toString() shouldBe "https://nofluffjobs.com/api/search/posting?pageSize=20&salaryCurrency=PLN&salaryPeriod=month&region=pl"
     }
 
     "builder should contain application/infiniteSearch+json header" {
