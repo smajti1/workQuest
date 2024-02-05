@@ -15,7 +15,7 @@ class NoFluffJobsComRequestBuilder() : RequestBuilderInterface {
     override var jobCategory: JobCategory = JobCategory.Total
 
     override fun build(): Request {
-        val request = Fuel.post("$NO_FLUFF_JOBS_API_URL?pageSize=0&salaryCurrency=PLN&salaryPeriod=month&region=pl")
+        val request = Fuel.post("$NO_FLUFF_JOBS_API_URL?pageSize=20&salaryCurrency=PLN&salaryPeriod=month&region=pl")
             .header(Headers.CONTENT_TYPE, "application/infiniteSearch+json")
         var rawSearch = when (this.jobCategory) {
             JobCategory.Total -> ""
