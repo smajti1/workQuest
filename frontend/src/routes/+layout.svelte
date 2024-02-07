@@ -27,7 +27,7 @@
 					</svg>
 				</button>
 			</svelte:fragment>
-			Work in.it offer report
+			WorkQuest.it offer report
 			<svelte:fragment slot="trail">
 				<LightSwitch />
 			</svelte:fragment>
@@ -54,7 +54,7 @@
 				<AppRailAnchor href="/startupJobs" selected={$page.url.pathname === '/startupJobs'}>startupJobs</AppRailAnchor>
 				<AppRailAnchor href="/itLeaders" selected={$page.url.pathname === '/itLeaders'}>it-leaders</AppRailAnchor>
 				<svelte:fragment slot="trail">
-					<AppRailAnchor href="https://github.com/smajti1/workInIt" target="_blank" title="Github smajti1/workInIt project">
+					<AppRailAnchor href="https://github.com/smajti1/workQuest" target="_blank" title="Github smajti1/workQuest project">
 						<svelte:fragment slot="lead">
 							<img src="./icon/icons8-github-48.png" alt="Github Icon" width="38px" />
 						</svelte:fragment>

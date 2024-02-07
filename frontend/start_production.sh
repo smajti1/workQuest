@@ -9,7 +9,7 @@ docker run --tty --interactive \
     --user $(id -u ${USER}):$(id -g ${USER}) \
     --publish 3000:3000 \
     --detach \
-    --name "workInIt_frontend" \
+    --name "workQuest_frontend" \
     --restart ${DOCKER_RESTART} \
     --network caddy \
     --label caddy=${APP_URL} \

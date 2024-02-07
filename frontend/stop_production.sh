@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker stop "workInIt_frontend" && docker rm $_
+docker stop "workQuest_frontend" && docker rm $_

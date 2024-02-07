@@ -1,4 +1,4 @@
-# WorkInIt
+# WorkQuest
 
 How to start
 
@@ -11,7 +11,7 @@ You may need to create external docker network (if not exist)
     docker network create caddy
 
 To work with domain use caddy reverse_proxy [caddy-docker-proxy](https://github.com/lucaslorentz/caddy-docker-proxy)
-on development server should run on https://in.localhost next:
+on development server should run on https://workQuest.localhost next:
 
 ### Backend
 
@@ -54,7 +54,7 @@ Frontend just run on http://localhost:3000 to change default port change it
 in [start_production.sh](./frontend/start_production.sh)
 see more in https://kit.svelte.dev/docs/adapter-node
 
-To check if server is running execute `docker ps` command and to stop just run `docker stop workInIt`
+To check if server is running execute `docker ps` command and to stop just run `docker stop workQuest`
 
 ### Postgresql - db
 

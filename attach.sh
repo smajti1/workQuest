@@ -1,1 +1,1 @@
-docker attach workinit-kotlin-backend --sig-proxy=false
+docker attach workQuest-kotlin-backend --sig-proxy=false
