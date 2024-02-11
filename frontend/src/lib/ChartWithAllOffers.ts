@@ -2,7 +2,7 @@ import { get } from 'svelte/store';
 import type { Chart } from 'chart.js';
 
 export async function fetchJobOffer(jobOfferVariant: JobOfferVariantType) {
-	let url = `http://localhost:8080/api/v1/job-offer/${jobOfferVariant.jobPortal}?jobCategory=${jobOfferVariant.category}`;
+	let url = window.location.origin + `/api/v1/job-offer/${jobOfferVariant.jobPortal}?jobCategory=${jobOfferVariant.category}`;
 	if (jobOfferVariant.city) {
 		url += `&city=${jobOfferVariant.city}`;
 	}

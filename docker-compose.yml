@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
+    networks:
+      - workQuest-net
     ports:
       - ${DB_PORT}:5432
 
@@ -17,6 +19,8 @@ services:
     restart: ${DOCKER_RESTART}
     environment:
       SE_START_VNC: false
+    networks:
+      - workQuest-net
     #ports:
     #  - "4444:4444"
     ## To see what is happening inside the container, head to http://localhost:7900/?autoconnect=1&resize=scale&password=secret
@@ -37,6 +41,12 @@ services:
     command: >
       bash -c './gradlew --no-daemon clean unzipNewrelic build --exclude-task jar ${GRADLE_ADDITIONAL_ARGUMENTS} \
         && java -XX:+UseSerialGC -Xss512k -Xms256m -Xmx512m  -Dnewrelic.config.file=newrelic/newrelic.yml -javaagent:./build/libs/newrelic/newrelic.jar -jar "./build/libs/workQuest-$(cat /var/www/build.gradle.kts | grep "version = " | grep -Eo "[0-9]+.[0-9]+.[0-9]+").jar"'
+    networks:
+      - workQuest-net
+      - caddy
+    labels:
+      caddy: ${APP_URL}
+      caddy.reverse_proxy: /api* "{{upstreams 8080}}"
     ports:
       - "8080:8080"
     depends_on:
@@ -46,3 +56,8 @@ services:
 
 volumes:
   postgres:
+
+networks:
+  workQuest-net:
+  caddy:
+    external: true
