@@ -56,11 +56,6 @@ see more in https://kit.svelte.dev/docs/adapter-node
 
 To check if server is running execute `docker ps` command and to stop just run `docker stop workQuest`
 
-### Postgresql - db
-
-To connect use command `docker compose exec postgres-db psql --password --username=$DB_USERNAME`
-with data from `.env` file
-
 ### Backend links:
 
 - for scraping web project use selenium https://www.selenium.dev
@@ -72,3 +67,6 @@ with data from `.env` file
 - utility-first CSS framework https://tailwindcss.com
 - UI toolkit for Svelte and Tailwind https://www.skeleton.dev
 - SVG icons, by the makers of Tailwind CSS https://heroicons.com
+
+### Docs:
+- [postgres](docs/postgres.md)
