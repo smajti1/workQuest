@@ -46,8 +46,6 @@ Frontend just run on http://localhost:5173 to change default port change it in [
 
 To create a production version of app just run:
 
-    ./npm.sh ci --omit dev
-    ./npm.sh run build
     ./start_production.sh #it will run node server using docker in detached mode
 
 Frontend just run on http://localhost:3000 to change default port change it

@@ -1,8 +1,17 @@
 #!/bin/bash
 
+echo "[1/4] Running ./npm.sh ci --omit dev"
+./npm.sh ci --omit dev
+
+echo "[2/4] Running ./npm.sh run build"
+./npm.sh run build
+
+echo "[3/4] Running stop_production.sh"
+./stop_production.sh
+
 export $(xargs < "../.env")
 
-echo "Running (node build) docker in detach mode"
+echo "[4/4] Running (node build) docker in detach mode"
 docker run --tty --interactive \
     --volume ${PWD}:/var/www \
     --workdir /var/www \
