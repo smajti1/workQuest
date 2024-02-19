@@ -1,8 +1,9 @@
 import { get } from 'svelte/store';
 import type { Chart } from 'chart.js';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 
 export async function fetchJobOffer(jobOfferVariant: JobOfferVariantType) {
-	let url = window.location.origin + `/api/v1/job-offer/${jobOfferVariant.jobPortal}?jobCategory=${jobOfferVariant.category}`;
+	let url = PUBLIC_BASE_URL + `/api/v1/job-offer/${jobOfferVariant.jobPortal}?jobCategory=${jobOfferVariant.category}`;
 	if (jobOfferVariant.city) {
 		url += `&city=${jobOfferVariant.city}`;
 	}
@@ -49,6 +50,8 @@ export function mapPortalConstToString(portalConst: string) {
 			return 'theProtocol.it';
 		case 'STARTUP_JOBS':
 			return 'startupJobs.com';
+		case 'IT_LEADERS':
+			return 'it-leaders.pl';
 	}
 	return 'Undefined';
 }

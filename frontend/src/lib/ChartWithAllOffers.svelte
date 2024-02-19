@@ -54,7 +54,7 @@
 				},
 			},
 		});
-	};
+	}
 </script>
 
 <div class="relative mx-auto">
@@ -101,6 +101,6 @@
 
 <style>
 	div#chartContainer {
-		background-color: #fff;
+		background-color: rgba(var(--color-surface-50) / 1);
 	}
 </style>
