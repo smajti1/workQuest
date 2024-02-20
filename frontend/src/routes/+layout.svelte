@@ -5,6 +5,7 @@
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import Icon from '$lib/Icon.svelte';
 
 	let leftSidebarVisible = true;
 	onMount(() => {
@@ -20,11 +21,7 @@
 		<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" padding="px-8 py-3">
 			<svelte:fragment slot="lead">
 				<button on:click={() => leftSidebarVisible = !leftSidebarVisible}>
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-50 hover:opacity-100">
-						<path fill-rule="evenodd"
-									d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z"
-									clip-rule="evenodd" />
-					</svg>
+					<Icon name="burger3" class="w-5 h-5 opacity-50 hover:opacity-100"/>
 				</button>
 			</svelte:fragment>
 			WorkQuest.it offer report
@@ -37,11 +34,7 @@
 		{#if leftSidebarVisible}
 			<AppRail aspectRatio="aspect-[10/9]">
 				<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-							 stroke="currentColor" class="w-7 h-7 inline-block">
-						<path stroke-linecap="round" stroke-linejoin="round"
-									d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-					</svg>
+					<Icon name="home" class="w-7 h-7 inline-block"/>
 				</AppRailAnchor>
 				<AppRailAnchor href="/justJoinIt" selected={$page.url.pathname === '/justJoinIt'}>justJoin.it</AppRailAnchor>
 				<AppRailAnchor href="/noFluffJobs" selected={$page.url.pathname === '/noFluffJobs'}>noFluffJobs</AppRailAnchor>

@@ -31,6 +31,7 @@ Backend run on http://localhost:8080
 To see if docker run use `docker compose ps`, to see logs use `docker compose logs --follow`
 
 ### Frontend
+Add `.env` in `frontend` directory with `PUBLIC_BASE_URL=https://workquest.localhost`
 
 Frontend files are placed in [frontend](./frontend) directory
 and use node/npm from docker see `npm.sh` file
