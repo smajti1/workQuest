@@ -11,11 +11,18 @@
 		Tooltip,
 	} from 'chart.js';
 	import { get } from 'svelte/store';
-	import { fetchJobOffer, addOrRemoveDataset, mapPortalConstToString } from '$lib/ChartWithAllOffers.js';
+	import {
+		fetchJobOffer,
+		addOrRemoveDataset,
+		mapPortalConstToString,
+		fetchRestSelectedJobOffer,
+	} from '$lib/ChartWithAllOffers.js';
 	import Icon from '$lib/Icon.svelte';
 
+	export let jobPortal;
 	export let jobOfferVariantList;
-	const jobOfferPromise = fetchJobOffer(get(jobOfferVariantList)[0]);
+	const jobOfferSelectedList = get(jobOfferVariantList).filter((obj) => obj.selected);
+	const jobOfferPromise = fetchJobOffer(jobPortal, jobOfferSelectedList[0]);
 	let chart;
 
 	Chart.register(
@@ -55,6 +62,7 @@
 				},
 			},
 		});
+		fetchRestSelectedJobOffer(jobPortal, chart, jobOfferVariantList, jobOfferSelectedList);
 	}
 </script>
 
@@ -69,7 +77,7 @@
 		{#each $jobOfferVariantList as jobOfferVariant}
 			<button
 				class="snap-center chip {jobOfferVariant.selected ? 'variant-filled' : 'variant-filled-surface'}"
-				on:click={() => { addOrRemoveDataset(jobOfferVariantList, chart, jobOfferVariant); }}
+				on:click={() => { addOrRemoveDataset(jobPortal, jobOfferVariantList, chart, jobOfferVariant); }}
 				on:keypress
 			>
 				{#if jobOfferVariant.selected}
@@ -78,7 +86,7 @@
 				</span>
 				{/if}
 				<span>
-					{mapPortalConstToString(jobOfferVariant.jobPortal)}
+					{mapPortalConstToString(jobPortal)}
 					: <strong>{jobOfferVariant.category}</strong>{jobOfferVariant.city ? ` - ${jobOfferVariant.city}` : ''}
 				</span>
 			</button>
