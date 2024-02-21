@@ -22,6 +22,6 @@ interface JobOfferCountRepository : JpaRepository<JobOfferCount, UUID> {
         endDateTime: LocalDateTime,
     ): Iterable<JobOfferCount>
 
-    @Query("select joc from JobOfferCount joc where date(joc.createdAt) = date(now()) and joc.city is null and joc.category = :jobCategory")
+    @Query("select joc from JobOfferCount joc where date(joc.createdAt) = date(now()) and joc.city is null and joc.category = :jobCategory order by joc.jobPortal")
     fun findByCategoryWhereCreatedIsToday(@Param(value = "jobCategory") jobCategory: JobCategory): Iterable<JobOfferCount>
 }

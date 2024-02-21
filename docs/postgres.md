@@ -8,7 +8,7 @@ Dump database to file
 
 dbname and username variable make be different see `.env` file
 
-    docker compose exec postgres-db pg_dump --no-owner --dbname=workQuest --username=workQuest > pg_dump_2024-02-08.sql
+    docker compose exec postgres-db pg_dump --no-owner --dbname=workQuest --username=workQuest > pg_dump_$(date +'%F').sql
 
 upgrade postgres version in `docker-compose.yml` file
 

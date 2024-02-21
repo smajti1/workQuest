@@ -1,5 +1,6 @@
 <script>
 	import ChartPieWithTotalToday from '$lib/ChartPie/ChartPieWithTotalToday.svelte';
+	import { JobCategory } from '$lib/model/JobOfferCount';
 </script>
 
 <h1>Select portal with offers</h1>
@@ -37,12 +38,8 @@
 	</a>
 </div>
 <br>
-<div id="chartPieContainer">
-	<ChartPieWithTotalToday />
+<div class="grid grid-cols-3 gap-5">
+	<ChartPieWithTotalToday jobCategory={JobCategory.Total} />
+	<ChartPieWithTotalToday jobCategory={JobCategory.Kotlin} />
+	<ChartPieWithTotalToday jobCategory={JobCategory.Php} />
 </div>
-
-<style>
-	div#chartPieContainer {
-		max-width: 650px;
-	}
-</style>

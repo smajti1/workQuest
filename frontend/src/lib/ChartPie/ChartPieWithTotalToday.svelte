@@ -10,16 +10,25 @@
 	import Icon from '$lib/Icon.svelte';
 	import { mapPortalConstToString } from '$lib/ChartWithAllOffers';
 	import { PUBLIC_BASE_URL } from '$env/static/public';
+	import { JobCategory, type JobOfferCount } from '$lib/model/JobOfferCount';
 
 	let chart;
-	const totalOfferCountPromise = fetch(PUBLIC_BASE_URL + `/api/v1/total/today`);
-	type JobOfferCountType = {
-		id: string,
-		jobPortal: string,
-		category: string,
-		city: string|null,
-		count: number,
-	};
+
+	export let jobCategory: JobCategory;
+	const apiUrl = `/api/v1/total/today?jobCategory=${jobCategory}`;
+	let label = '';
+	switch (jobCategory) {
+		case JobCategory.Kotlin:
+			label = 'Kotlin';
+			break;
+		case JobCategory.Php:
+			label = 'Php';
+			break;
+		default:
+		case JobCategory.Total:
+			label = '';
+		break
+	}
 
 	Chart.register(
 		Colors,
@@ -29,8 +38,7 @@
 		ArcElement
 	);
 
-	async function initializeChart(chartNode, totalOfferCountResponse: Response) {
-		const responseData = await totalOfferCountResponse.json();
+	async function initializeChart(chartNode, responseData: JobOfferCount[]) {
 		let { data, countTotal } = getChartDataFromResponse(responseData);
 
 		chart = new Chart(chartNode, {
@@ -54,7 +62,7 @@
 		});
 	}
 
-	function getChartDataFromResponse(responseData: JobOfferCountType[]) {
+	function getChartDataFromResponse(responseData: JobOfferCount[]) {
 		let data = {
 			labels: [],
 			datasets: []
@@ -70,16 +78,30 @@
 		data.datasets.push({ data: datasetCount });
 		return { data, countTotal };
 	}
+
+	function countTotalOfferNumber(responseData: JobOfferCount[]): number {
+		let countTotal = 0;
+		for (const key in responseData) {
+			countTotal += responseData[key].count;
+		}
+		return countTotal;
+	}
+
+	async function getTotalOfferCount() {
+		return await fetch(PUBLIC_BASE_URL + apiUrl)
+			.then((response) => response.json())
+			.then((data) => data);
+	}
 </script>
 
-{#await totalOfferCountPromise}
+{#await getTotalOfferCount()}
 	<p>
 		fetching data
 		<Icon name="spinner" class="inline animate-spin w-6 h-6"/>
 	</p>
 {:then totalOfferCount}
 	<div>
-		Total offer number per job portal for today
+		Total <strong>{label}</strong> offer number ({countTotalOfferNumber(totalOfferCount).toLocaleString()}) per job portal for today
 		<div id="chartContainer" class="relative mx-auto rounded-md">
 			<canvas id="myChart" use:initializeChart={totalOfferCount}></canvas>
 		</div>
