@@ -2,7 +2,7 @@ import { get } from 'svelte/store';
 import type { Chart } from 'chart.js';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 
-export async function fetchJobOffer(jobPortal: string, jobOfferVariant: JobOfferVariantType) {
+export async function fetchJobOffer(jobPortal: string, jobOfferVariant: JobOfferVariantType, jobOfferVariantList) {
 	let url = PUBLIC_BASE_URL + `/api/v1/job-offer/${jobPortal}?jobCategory=${jobOfferVariant.category}`;
 	if (jobOfferVariant.city) {
 		url += `&city=${jobOfferVariant.city}`;
@@ -10,14 +10,14 @@ export async function fetchJobOffer(jobPortal: string, jobOfferVariant: JobOffer
 	try {
 		const res = await fetch(url);
 		if (res.ok) {
-			return createChartDataset(await res.json(), jobPortal, jobOfferVariant);
+			return createChartDataset(await res.json(), jobPortal, jobOfferVariant, jobOfferVariantList);
 		}
 	} catch (e) {
 	}
 	throw new Error('Could not fetch job offers');
 }
 
-function createChartDataset(requestData, jobPortal: string, jobOfferVariant: JobOfferVariantType) {
+function createChartDataset(requestData, jobPortal: string, jobOfferVariant: JobOfferVariantType, jobOfferVariantList) {
 	let data = [];
 	for (const key in requestData) {
 		data.push({x: key, y: requestData[key]});
@@ -26,7 +26,9 @@ function createChartDataset(requestData, jobPortal: string, jobOfferVariant: Job
 		label: mapPortalConstToString(jobPortal) + ' ' + jobOfferVariant.category + (jobOfferVariant.city ? ` - ${jobOfferVariant.city}` : ''),
 		data: data,
 		pointRadius: 4,
-		jobOfferVariantIndex: 0,
+		jobOfferVariantIndex: getJobOfferVariantIndex(jobOfferVariantList, jobOfferVariant),
+		backgroundColor: jobOfferVariant.lineColor.replace('rgb(', 'rgba(').replace(')', ', 0.5)'),
+		borderColor: jobOfferVariant.lineColor,
 	};
 }
 
@@ -56,7 +58,7 @@ export function mapPortalConstToString(portalConst: string) {
 	return 'Undefined';
 }
 
-type JobOfferVariantType = {category: string, city: string|null, selected: boolean};
+type JobOfferVariantType = {category: string, city: string|null, selected: boolean, lineColor: string};
 
 function getJobOfferVariantIndex(jobOfferVariantList, jobOfferVariant: JobOfferVariantType) {
 	return get(jobOfferVariantList).findIndex((obj) => obj.category === jobOfferVariant.category && obj.city === jobOfferVariant.city)
@@ -76,7 +78,7 @@ export function addOrRemoveDataset(jobPortal: string, jobOfferVariantList, chart
 	jobOfferVariantList.set(get(jobOfferVariantList));
 
 	if (get(jobOfferVariantList)[jobOfferVariantIndex].selected) {
-		fetchJobOffer(jobPortal, jobOfferVariant).then(result => {
+		fetchJobOffer(jobPortal, jobOfferVariant, jobOfferVariantList).then(result => {
 			result.jobOfferVariantIndex = jobOfferVariantIndex
 			chart.data.datasets.push(result);
 			chart.update();
@@ -97,7 +99,7 @@ export function fetchRestSelectedJobOffer(jobPortal: string, chart: Chart, jobOf
 		}
 		const jobOfferVariant = jobOfferSelectedList[index];
 		const jobOfferVariantIndex = getJobOfferVariantIndex(jobOfferVariantList, jobOfferVariant);
-		fetchJobOffer(jobPortal, jobOfferVariant).then(result => {
+		fetchJobOffer(jobPortal, jobOfferVariant, jobOfferVariantList).then(result => {
 			result.jobOfferVariantIndex = jobOfferVariantIndex
 			chart.data.datasets.push(result);
 			chart.update();

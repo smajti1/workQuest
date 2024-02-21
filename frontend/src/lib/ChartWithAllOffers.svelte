@@ -1,7 +1,6 @@
 <script lang="ts">
 	import {
 		Chart,
-		Colors,
 		LineController,
 		CategoryScale,
 		LinearScale,
@@ -22,11 +21,10 @@
 	export let jobPortal;
 	export let jobOfferVariantList;
 	const jobOfferSelectedList = get(jobOfferVariantList).filter((obj) => obj.selected);
-	const jobOfferPromise = fetchJobOffer(jobPortal, jobOfferSelectedList[0]);
+	const jobOfferPromise = fetchJobOffer(jobPortal, jobOfferSelectedList[0], jobOfferVariantList);
 	let chart;
 
 	Chart.register(
-		Colors,
 		LineController,
 		LineElement,
 		CategoryScale,

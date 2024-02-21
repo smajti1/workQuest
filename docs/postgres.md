@@ -19,7 +19,7 @@ upgrade postgres version in `docker-compose.yml` file
 
 Download pg_dump_2024-02-08.sql from server
 
-    scp USERNAME@IP_ADDRESS:prod/fakturomat/pg_dump_2024-02-08.sql .
+    scp USERNAME@IP_ADDRESS:prod/workQuest/pg_dump_2024-02-08.sql .
 
 https://www.postgresql.org/docs/current/app-pgdump.html
 
