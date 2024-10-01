@@ -15,11 +15,11 @@ upgrade postgres version in `docker-compose.yml` file
     docker compose down
     docker volume rm workquest_postgres
     docker compose up --detach
-    docker compose exec -T postgres-db psql --dbname=workQuest --username=workQuest < pg_dump_2024-02-08.sql
+    docker compose exec -T postgres-db psql --dbname=workQuest --username=workQuest < pg_dump.sql
 
 Download pg_dump_2024-02-08.sql from server
 
-    scp USERNAME@IP_ADDRESS:prod/workQuest/pg_dump_2024-02-08.sql .
+    scp USERNAME@IP_ADDRESS:prod/workQuest/pg_dump.sql .
 
 https://www.postgresql.org/docs/current/app-pgdump.html
 
