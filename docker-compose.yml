@@ -38,7 +38,7 @@ services:
 
   kotlin-backend:
     container_name: workQuest-kotlin-backend
-    image: eclipse-temurin:21-alpine
+    image: eclipse-temurin:21
     mem_limit: ${MEMORY_LIMIT}
     stdin_open: true
     # tty: true
@@ -49,7 +49,7 @@ services:
       - ./.gradle:/.gradle:rw # gradle downloading directory
       - ./.docker/.gradle:/root/.gradle:rw # gradle home cache directory
     command: >
-      bash -c './gradlew --no-daemon clean unzipNewrelic build --exclude-task jar ${GRADLE_ADDITIONAL_ARGUMENTS} \
+      bash -c './gradlew --no-daemon clean unzipNewrelic build ${GRADLE_ADDITIONAL_ARGUMENTS} \
         && java -XX:+UseSerialGC -Xss512k -Xms256m -Xmx512m  -Dnewrelic.config.file=newrelic/newrelic.yml -javaagent:./build/libs/newrelic/newrelic.jar -jar "./build/libs/workQuest-$(cat /var/www/build.gradle.kts | grep "version = " | grep -Eo "[0-9]+.[0-9]+.[0-9]+").jar"'
     networks:
       - workQuest-net
