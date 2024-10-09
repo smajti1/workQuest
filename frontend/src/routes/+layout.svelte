@@ -14,7 +14,7 @@
 	});
 </script>
 
-<svelte:head>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head>
+<svelte:head>{@html '<script>(' + autoModeWatcher.toString() + ')();</script>'}</svelte:head>
 
 <AppShell>
 	<svelte:fragment slot="header">
