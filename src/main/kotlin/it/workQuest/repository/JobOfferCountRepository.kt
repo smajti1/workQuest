@@ -10,6 +10,10 @@ import java.time.LocalDateTime
 import java.util.*
 
 interface JobOfferCountRepository : JpaRepository<JobOfferCount, UUID> {
+    fun findByCategoryOrderByCreatedAt(
+        category: JobCategory,
+    ): Iterable<JobOfferCount>
+
     fun findByJobPortalAndCategoryAndCityOrderByCreatedAt(
         jobPortal: JobPortal,
         category: JobCategory,

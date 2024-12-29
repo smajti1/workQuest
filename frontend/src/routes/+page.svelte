@@ -1,11 +1,12 @@
 <script>
 	import ChartPieWithTotalToday from '$lib/ChartPie/ChartPieWithTotalToday.svelte';
 	import { JobCategory } from '$lib/model/JobOfferCount';
+	import ChartTotal from '$lib/ChartTotal/ChartTotal.svelte';
 </script>
 
 <h1>Select portal with offers</h1>
 
-<div class="logo-cloud grid-cols-1 lg:!grid-cols-5 gap-1">
+<div class="logo-cloud grid-cols-1 grid-cols-3 gap-1 md:!grid-cols-5">
 	<a class="logo-item" href="/justJoinIt">
 		<span>justJoin.it</span>
 	</a>
@@ -28,16 +29,20 @@
 		<span>indeed.com</span>
 	</a>
 	<a class="logo-item" href="/theProtocol">
-		<span>theProtocol.it</span>
+		<span>theProtocol<span class="hidden sm:inline-block">.it</span></span>
 	</a>
 	<a class="logo-item" href="/startupJobs">
-		<span>startupJobs.com</span>
+		<span>startupJobs<span class="hidden sm:inline-block">.com</span></span>
 	</a>
 	<a class="logo-item" href="/itLeaders">
 		<span>it-leaders.pl</span>
 	</a>
 </div>
-<br>
+<br />
+<div class="container mx-auto">
+	<div>Total offer numbers chart:</div>
+	<ChartTotal />
+</div>
 <div class="grid grid-cols-3 gap-5">
 	<ChartPieWithTotalToday jobCategory={JobCategory.Total} />
 	<ChartPieWithTotalToday jobCategory={JobCategory.Kotlin} />
