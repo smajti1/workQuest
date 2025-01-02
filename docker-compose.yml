@@ -41,7 +41,7 @@ services:
     image: eclipse-temurin:21
     mem_limit: ${MEMORY_LIMIT}
     stdin_open: true
-    # tty: true
+    tty: true # with this set to true use Ctrl+P, Ctrl+Q to exit
     restart: ${DOCKER_RESTART}
     working_dir: /var/www
     volumes:

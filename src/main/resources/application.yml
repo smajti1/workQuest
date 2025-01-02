@@ -1,5 +1,11 @@
 spring:
 
+  shell:
+    interactive:
+      enabled: true
+    script:
+      enabled: true
+
   jpa:
     hibernate:
       ddl-auto: update

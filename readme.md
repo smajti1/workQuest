@@ -21,7 +21,7 @@ Copy or create newrelic config file `newrelic/newrelic.yml` copy from `build/lib
 
 Project will be build when docker start `docker compose up --detach`
 
-To attach to container use `./attach.sh` script (you may need to push enter to see `shell:>`) next you can use spring boot shell command:
+To attach to container use `./attach.sh` to exit `Ctrl+P, Ctrl+Q` (you may need to push enter to see `shell:>`) next you can use spring boot shell command:
 
 - `runCronAll` to run all cron task
 - `runCron JOB_PORTAL` to run only one (run `runCron` to list available options)
