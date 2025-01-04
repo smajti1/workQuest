@@ -6,4 +6,4 @@ docker run --tty --interactive --rm \
     --workdir /var/www \
     --user $(id -u ${USER}):$(id -g ${USER}) \
     --publish 5173:5173 \
-    node:21 npm "$@"
+    node:22 npm "$@"

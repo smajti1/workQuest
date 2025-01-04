@@ -18,8 +18,7 @@
 	} from '$lib/ChartWithAllOffers.js';
 	import Icon from '$lib/Icon.svelte';
 
-	export let jobPortal;
-	export let jobOfferVariantList;
+	let { jobPortal, jobOfferVariantList } = $props();
 	const jobOfferSelectedList = get(jobOfferVariantList).filter((obj) => obj.selected);
 	const jobOfferPromise = fetchJobOffer(jobPortal, jobOfferSelectedList[0], jobOfferVariantList);
 	let chart;
@@ -75,8 +74,8 @@
 		{#each $jobOfferVariantList as jobOfferVariant}
 			<button
 				class="snap-center chip {jobOfferVariant.selected ? 'variant-filled' : 'variant-filled-surface'}"
-				on:click={() => { addOrRemoveDataset(jobPortal, jobOfferVariantList, chart, jobOfferVariant); }}
-				on:keypress
+				onclick={() => { addOrRemoveDataset(jobPortal, jobOfferVariantList, chart, jobOfferVariant); }}
+				onkeypress={() => {}}
 			>
 				{#if jobOfferVariant.selected}
 				<span>

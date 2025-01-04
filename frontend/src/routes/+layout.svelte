@@ -20,7 +20,7 @@
 	<svelte:fragment slot="header">
 		<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" padding="px-8 py-3">
 			<svelte:fragment slot="lead">
-				<button on:click={() => leftSidebarVisible = !leftSidebarVisible}>
+				<button onclick={() => leftSidebarVisible = !leftSidebarVisible}>
 					<Icon name="burger3" class="w-5 h-5 opacity-50 hover:opacity-100"/>
 				</button>
 			</svelte:fragment>

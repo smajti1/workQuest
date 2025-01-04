@@ -14,7 +14,7 @@
 
 	let chart;
 
-	export let jobCategory: JobCategory;
+	let { jobCategory } = $props();
 	const apiUrl = `/api/v1/total/today?jobCategory=${jobCategory}`;
 	let label = '';
 	switch (jobCategory) {
