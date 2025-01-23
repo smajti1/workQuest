@@ -4,7 +4,6 @@ import io.kotest.core.spec.style.StringSpec
 import io.mockk.*
 import it.workQuest.cron.bulldogJob.BulldogJobCron
 import it.workQuest.cron.inHireIo.InHireIoCron
-import it.workQuest.cron.indeedCom.IndeedComCron
 import it.workQuest.cron.itLeaders.ItLeadersCron
 import it.workQuest.cron.justJoinIt.JustJoinItCron
 import it.workQuest.cron.noFluffJobsCom.NoFluffJobsComCron
@@ -20,7 +19,6 @@ class RunAllCronCommandUnitTest : StringSpec({
     val bulldogJobCron = mockk<BulldogJobCron>()
     val inHireIoCron = mockk<InHireIoCron>()
     val pracujPlCron = mockk<PracujPlCron>()
-    val indeedComCron = mockk<IndeedComCron>()
     val theProtocolCron = mockk<TheProtocolCron>()
     val startupJobsCron = mockk<StartupJobsCron>()
     val itLeadersCron = mockk<ItLeadersCron>()
@@ -32,7 +30,6 @@ class RunAllCronCommandUnitTest : StringSpec({
             bulldogJobCron,
             inHireIoCron,
             pracujPlCron,
-            indeedComCron,
             theProtocolCron,
             startupJobsCron,
             itLeadersCron,
@@ -55,8 +52,6 @@ class RunAllCronCommandUnitTest : StringSpec({
         every { inHireIoCron.getOffersNumber(0L) } answers { }
         every { pracujPlCron.getCronFunctionArray() } answers { callOriginal() }
         every { pracujPlCron.getOffersNumber(0L) } answers { }
-        every { indeedComCron.getCronFunctionArray() } answers { callOriginal() }
-        every { indeedComCron.getOffersNumber(0L) } answers { }
         every { theProtocolCron.getCronFunctionArray() } answers { callOriginal() }
         every { theProtocolCron.getOffersNumber(0L) } answers { }
         every { startupJobsCron.getCronFunctionArray() } answers { callOriginal() }
@@ -78,8 +73,6 @@ class RunAllCronCommandUnitTest : StringSpec({
         verify(exactly = 1) { inHireIoCron.getOffersNumber(0L) }
         verify(exactly = 1) { pracujPlCron.getCronFunctionArray() }
         verify(exactly = 1) { pracujPlCron.getOffersNumber(0L) }
-        verify(exactly = 1) { indeedComCron.getCronFunctionArray() }
-        verify(exactly = 1) { indeedComCron.getOffersNumber(0L) }
         verify(exactly = 1) { theProtocolCron.getCronFunctionArray() }
         verify(exactly = 1) { theProtocolCron.getOffersNumber(0L) }
         verify(exactly = 1) { startupJobsCron.getCronFunctionArray() }
@@ -94,7 +87,6 @@ class RunAllCronCommandUnitTest : StringSpec({
             bulldogJobCron,
             inHireIoCron,
             pracujPlCron,
-            indeedComCron,
             theProtocolCron,
             startupJobsCron,
             itLeadersCron,
@@ -114,7 +106,6 @@ class RunAllCronCommandUnitTest : StringSpec({
         verify(exactly = 0) { bulldogJobCron.getCronFunctionArray() }
         verify(exactly = 0) { inHireIoCron.getCronFunctionArray() }
         verify(exactly = 0) { pracujPlCron.getCronFunctionArray() }
-        verify(exactly = 0) { indeedComCron.getCronFunctionArray() }
         verify(exactly = 0) { theProtocolCron.getCronFunctionArray() }
         verify(exactly = 0) { startupJobsCron.getCronFunctionArray() }
         verify(exactly = 0) { itLeadersCron.getCronFunctionArray() }
@@ -131,7 +122,6 @@ class RunAllCronCommandUnitTest : StringSpec({
         verify(exactly = 0) { bulldogJobCron.getCronFunctionArray() }
         verify(exactly = 0) { inHireIoCron.getCronFunctionArray() }
         verify(exactly = 0) { pracujPlCron.getCronFunctionArray() }
-        verify(exactly = 0) { indeedComCron.getCronFunctionArray() }
         verify(exactly = 0) { theProtocolCron.getCronFunctionArray() }
         verify(exactly = 0) { startupJobsCron.getCronFunctionArray() }
         verify(exactly = 0) { itLeadersCron.getCronFunctionArray() }

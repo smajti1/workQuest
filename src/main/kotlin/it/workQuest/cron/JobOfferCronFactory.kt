@@ -2,7 +2,6 @@ package it.workQuest.cron
 
 import it.workQuest.cron.bulldogJob.BulldogJobCron
 import it.workQuest.cron.inHireIo.InHireIoCron
-import it.workQuest.cron.indeedCom.IndeedComCron
 import it.workQuest.cron.itLeaders.ItLeadersCron
 import it.workQuest.cron.justJoinIt.JustJoinItCron
 import it.workQuest.cron.noFluffJobsCom.NoFluffJobsComCron
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component
 @Component
 class JobOfferCronFactory(
     private val bulldogJobCron: BulldogJobCron,
-    private val indeedComCron: IndeedComCron,
     private val inHireIoCron: InHireIoCron,
     private val itLeadersCron: ItLeadersCron,
     private val justJoinItCron: JustJoinItCron,
@@ -31,7 +29,6 @@ class JobOfferCronFactory(
         return when (jobPortal) {
             JobPortal.BULLDOG_JOB -> this.bulldogJobCron
             JobPortal.IN_HIRE_IO -> this.inHireIoCron
-            JobPortal.INDEED_COM -> this.indeedComCron
             JobPortal.IT_LEADERS -> this.itLeadersCron
             JobPortal.JUST_JOIN_IT -> this.justJoinItCron
             JobPortal.NO_FLUFF_JOBS_COM -> this.noFluffJobsComCron

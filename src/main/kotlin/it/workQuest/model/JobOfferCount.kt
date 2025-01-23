@@ -27,7 +27,6 @@ class JobOfferCount(
 enum class JobPortal {
     BULLDOG_JOB,
     IN_HIRE_IO,
-    INDEED_COM,
     IT_LEADERS,
     JUST_JOIN_IT,
     NO_FLUFF_JOBS_COM,

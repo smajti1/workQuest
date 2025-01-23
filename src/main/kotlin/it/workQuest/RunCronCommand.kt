@@ -2,7 +2,6 @@ package it.workQuest
 
 import it.workQuest.cron.bulldogJob.BulldogJobCron
 import it.workQuest.cron.inHireIo.InHireIoCron
-import it.workQuest.cron.indeedCom.IndeedComCron
 import it.workQuest.cron.itLeaders.ItLeadersCron
 import it.workQuest.cron.justJoinIt.JustJoinItCron
 import it.workQuest.cron.noFluffJobsCom.NoFluffJobsComCron
@@ -25,7 +24,6 @@ class RunCronCommand(
     val bulldogJobCron: BulldogJobCron,
     val inHireIoCron: InHireIoCron,
     val pracujPlCron: PracujPlCron,
-    val indeedComCron: IndeedComCron,
     val theProtocolCron: TheProtocolCron,
     val startupJobsCron: StartupJobsCron,
     val itLeadersCron: ItLeadersCron,
@@ -41,7 +39,6 @@ class RunCronCommand(
                 bulldogJobCron.getCronFunctionArray() +
                 inHireIoCron.getCronFunctionArray() +
                 pracujPlCron.getCronFunctionArray() +
-                indeedComCron.getCronFunctionArray() +
                 theProtocolCron.getCronFunctionArray() +
                 startupJobsCron.getCronFunctionArray() +
                 itLeadersCron.getCronFunctionArray()
@@ -69,7 +66,6 @@ class RunCronCommand(
             JobPortal.BULLDOG_JOB.toString() -> bulldogJobCron.getCronFunctionArray()
             JobPortal.IN_HIRE_IO.toString() -> inHireIoCron.getCronFunctionArray()
             JobPortal.PRACUJ_PL.toString() -> pracujPlCron.getCronFunctionArray()
-            JobPortal.INDEED_COM.toString() -> indeedComCron.getCronFunctionArray()
             JobPortal.THE_PROTOCOL.toString() -> theProtocolCron.getCronFunctionArray()
             JobPortal.STARTUP_JOBS.toString() -> startupJobsCron.getCronFunctionArray()
             JobPortal.IT_LEADERS.toString() -> itLeadersCron.getCronFunctionArray()

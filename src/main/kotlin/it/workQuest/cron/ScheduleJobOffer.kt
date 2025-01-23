@@ -16,8 +16,7 @@ class ScheduleJobOffer(private val jobOfferCronFactory: JobOfferCronFactory) {
 
     @Scheduled(cron = "0 0,30 1,2 * * ?", zone = "Europe/Warsaw") // run every day at 1:00:00, 1:30:00, 2:00:00, 2:30:00
     fun scheduleHarderWebScrapPages() {
-        val arrayOfCronFunctions = jobOfferCronFactory.get(JobPortal.INDEED_COM).getCronFunctionArray() +
-                jobOfferCronFactory.get(JobPortal.THE_PROTOCOL).getCronFunctionArray()
+        val arrayOfCronFunctions = jobOfferCronFactory.get(JobPortal.THE_PROTOCOL).getCronFunctionArray()
         for (cronFunction in arrayOfCronFunctions) {
             cronFunction.invoke(SLEEP_TIME)
         }
