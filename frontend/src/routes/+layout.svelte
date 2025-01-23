@@ -42,7 +42,6 @@
 				<AppRailAnchor href="/bulldogJob" selected={$page.url.pathname === '/bulldogJob'}>bulldogJob</AppRailAnchor>
 				<AppRailAnchor href="/inHireIo" selected={$page.url.pathname === '/inHireIo'}>inHire.io</AppRailAnchor>
 				<AppRailAnchor href="/pracujPl" selected={$page.url.pathname === '/pracujPl'}>it.pracuj.pl</AppRailAnchor>
-				<AppRailAnchor href="/indeedCom" selected={$page.url.pathname === '/indeedCom'}>indeed.com</AppRailAnchor>
 				<AppRailAnchor href="/theProtocol" selected={$page.url.pathname === '/theProtocol'}>theProtocol</AppRailAnchor>
 				<AppRailAnchor href="/startupJobs" selected={$page.url.pathname === '/startupJobs'}>startupJobs</AppRailAnchor>
 				<AppRailAnchor href="/itLeaders" selected={$page.url.pathname === '/itLeaders'}>it-leaders</AppRailAnchor>

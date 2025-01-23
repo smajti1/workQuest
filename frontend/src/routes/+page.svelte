@@ -25,9 +25,6 @@
 	<a class="logo-item" href="/pracujPl">
 		<span>it.pracuj.pl</span>
 	</a>
-	<a class="logo-item" href="/indeedCom">
-		<span>indeed.com</span>
-	</a>
 	<a class="logo-item" href="/theProtocol">
 		<span>theProtocol<span class="hidden sm:inline-block">.it</span></span>
 	</a>

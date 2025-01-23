@@ -46,8 +46,6 @@ export function mapPortalConstToString(portalConst: string) {
 			return 'inHire.io';
 		case 'PRACUJ_PL':
 			return 'it.pracuj.pl';
-		case 'INDEED_COM':
-			return 'indeed.com';
 		case 'THE_PROTOCOL':
 			return 'theProtocol.it';
 		case 'STARTUP_JOBS':
