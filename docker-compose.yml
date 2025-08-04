@@ -20,7 +20,7 @@ services:
         max-size: "25m" # file size
 
   selenium-web:
-    image: selenium/standalone-chrome:120.0
+    image: selenium/standalone-chrome:138.0
     restart: ${DOCKER_RESTART}
     environment:
       SE_START_VNC: false

@@ -32,7 +32,7 @@ dependencies {
     implementation("com.github.kittinunf.fuel:fuel:2.3.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     runtimeOnly("org.postgresql:postgresql")
-    implementation("org.seleniumhq.selenium:selenium-java:4.27.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.34.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
@@ -63,11 +63,12 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-val newrelicFile = "newrelic-java-8.17.0.zip"
+val newrelicVersion = "8.22.0"
+val newrelicFile = "newrelic-java-$newrelicVersion.zip"
 val downloadNewrelic by tasks.registering(Download::class) {
     description = "Download New Relic Java Agent"
     onlyIfNewer(true)
-    src("https://download.newrelic.com/newrelic/java-agent/newrelic-agent/8.17.0/$newrelicFile")
+    src("https://download.newrelic.com/newrelic/java-agent/newrelic-agent/$newrelicVersion/$newrelicFile")
     dest(file("newrelic/$newrelicFile"))
 }
 
