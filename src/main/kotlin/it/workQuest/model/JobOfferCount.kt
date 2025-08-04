@@ -10,7 +10,8 @@ class JobOfferCount(
     val count: Int,
     @Enumerated(EnumType.STRING) val category: JobCategory,
     val city: String?,
-    @Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID = UUID.randomUUID(),
+    @Id
+    val id: UUID = UUID.randomUUID(),
     val createdAt: LocalDateTime = LocalDateTime.now(),
 ) {
     companion object {
