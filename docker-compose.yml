@@ -11,8 +11,8 @@ services:
       POSTGRES_DB: ${DB_DATABASE}
     networks:
       - workQuest-net
-    ports:
-      - ${DB_PORT}:5432
+    expose:
+      - ${DB_PORT}
     logging:
       driver: "json-file"
       options:
