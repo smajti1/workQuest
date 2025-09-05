@@ -9,7 +9,9 @@ echo "[2/4] Running ./npm.sh run build"
 echo "[3/4] Running stop_production.sh"
 ./stop_production.sh
 
-export $(grep -v '^#' ../.env | xargs)
+set -a
+source ../.env
+set +a
 
 echo "[4/4] Running (node build) docker in detach mode"
 docker run --tty --interactive \
