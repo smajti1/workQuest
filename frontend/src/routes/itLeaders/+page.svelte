@@ -7,6 +7,4 @@
 
 <h1>Chart with <a href="https://it-leaders.pl" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">it-leaders.pl</a> offers</h1>
 
-<div class="container mx-auto">
-	<ChartWithAllOffers jobPortal={IT_LEADERS} jobOfferVariantList={jobOfferVariantList} />
-</div>
+<ChartWithAllOffers jobPortal={IT_LEADERS} jobOfferVariantList={jobOfferVariantList} />

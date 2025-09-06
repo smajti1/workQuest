@@ -1,61 +1,76 @@
-<script>
-	import '../app.pcss';
-	import { AppBar, AppShell, AppRail, AppRailAnchor } from '@skeletonlabs/skeleton';
-	import { autoModeWatcher } from '@skeletonlabs/skeleton';
-	import { LightSwitch } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
+<script lang="ts">
+	import '../app.css';
+	import { AppBar, Navigation } from '@skeletonlabs/skeleton-svelte';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import Icon from '$lib/Icon.svelte';
+	import LightSwitch  from '$lib/LightSwitch/LightSwitch.svelte';
 
-	let leftSidebarVisible = true;
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
+
+	let leftSidebarVisible = $state(false);
+
 	onMount(() => {
+		let localVisible = localStorage.getItem('leftSidebarVisible');
+		leftSidebarVisible = localVisible !== null ? localVisible === 'true' : true;
 		const smallWindow = window.innerWidth > 600;
-		leftSidebarVisible = smallWindow ?? true;
+		if (smallWindow && localVisible === null) {
+			leftSidebarVisible = false;
+		}
 	});
+
+	const onChangeLeftSidebar = (): void => {
+		leftSidebarVisible = !leftSidebarVisible;
+		localStorage.setItem('leftSidebarVisible', String(leftSidebarVisible));
+	}
 </script>
 
-<svelte:head>{@html '<script>(' + autoModeWatcher.toString() + ')();</script>'}</svelte:head>
-
-<AppShell>
-	<svelte:fragment slot="header">
+<div class="grid h-screen grid-rows-[auto_1fr_auto]">
+	<header>
 		<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" padding="px-8 py-3">
-			<svelte:fragment slot="lead">
-				<button onclick={() => leftSidebarVisible = !leftSidebarVisible}>
-					<Icon name="burger3" class="w-5 h-5 opacity-50 hover:opacity-100"/>
+			{#snippet lead()}
+				<button onclick={onChangeLeftSidebar}>
+					<Icon name="burger3" class="w-5 h-5 opacity-50 hover:opacity-100" />
 				</button>
-			</svelte:fragment>
+			{/snippet}
 			WorkQuest.it offer report
-			<svelte:fragment slot="trail">
+			{#snippet trail()}
 				<LightSwitch />
-			</svelte:fragment>
+				<a href="https://github.com/smajti1/workQuest" target="_blank" title="Github smajti1/workQuest project">
+					<img src="./icon/icons8-github-48.png" alt="Github Icon" class="h-6"/>
+				</a>
+			{/snippet}
 		</AppBar>
-	</svelte:fragment>
-	<svelte:fragment slot="sidebarLeft">
-		{#if leftSidebarVisible}
-			<AppRail aspectRatio="aspect-[10/9]">
-				<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>
-					<Icon name="home" class="w-7 h-7 inline-block"/>
-				</AppRailAnchor>
-				<AppRailAnchor href="/justJoinIt" selected={$page.url.pathname === '/justJoinIt'}>justJoin.it</AppRailAnchor>
-				<AppRailAnchor href="/noFluffJobs" selected={$page.url.pathname === '/noFluffJobs'}>noFluffJobs</AppRailAnchor>
-				<AppRailAnchor href="/solidJobs" selected={$page.url.pathname === '/solidJobs'}>solid.jobs</AppRailAnchor>
-				<AppRailAnchor href="/bulldogJob" selected={$page.url.pathname === '/bulldogJob'}>bulldogJob</AppRailAnchor>
-				<AppRailAnchor href="/inHireIo" selected={$page.url.pathname === '/inHireIo'}>inHire.io</AppRailAnchor>
-				<AppRailAnchor href="/pracujPl" selected={$page.url.pathname === '/pracujPl'}>it.pracuj.pl</AppRailAnchor>
-				<AppRailAnchor href="/theProtocol" selected={$page.url.pathname === '/theProtocol'}>theProtocol</AppRailAnchor>
-				<AppRailAnchor href="/startupJobs" selected={$page.url.pathname === '/startupJobs'}>startupJobs</AppRailAnchor>
-				<AppRailAnchor href="/itLeaders" selected={$page.url.pathname === '/itLeaders'}>it-leaders</AppRailAnchor>
-				<svelte:fragment slot="trail">
-					<AppRailAnchor href="https://github.com/smajti1/workQuest" target="_blank" title="Github smajti1/workQuest project">
-						<svelte:fragment slot="lead">
-							<img src="./icon/icons8-github-48.png" alt="Github Icon" width="38px" />
-						</svelte:fragment>
-					</AppRailAnchor>
-				</svelte:fragment>
-			</AppRail>
-		{/if}
-	</svelte:fragment>
-	<div class="px-8">
-		<slot/>
+	</header>
+
+	<div class="grid grid-cols-1 md:grid-cols-[auto_1fr]">
+			{#if leftSidebarVisible}
+				<Navigation.Rail width="w-22" >
+					{#snippet header()}
+						<Navigation.Tile href="/" selected={page.url.pathname === '/'}>
+							<Icon name="home" class="w-6 h-6 inline-block" />
+						</Navigation.Tile>
+						<Navigation.Tile href="/justJoinIt" selected={page.url.pathname === '/justJoinIt'} label="justJoin.it"/>
+						<Navigation.Tile href="/noFluffJobs" selected={page.url.pathname === '/noFluffJobs'} label="noFluffJobs"/>
+						<Navigation.Tile href="/solidJobs" selected={page.url.pathname === '/solidJobs'} label="solid.jobs"/>
+						<Navigation.Tile href="/bulldogJob" selected={page.url.pathname === '/bulldogJob'} label="bulldogJob"/>
+						<Navigation.Tile href="/inHireIo" selected={page.url.pathname === '/inHireIo'} label="inHire.io"/>
+						<Navigation.Tile href="/pracujPl" selected={page.url.pathname === '/pracujPl'} label="it.pracuj.pl"/>
+						<Navigation.Tile href="/theProtocol" selected={page.url.pathname === '/theProtocol'} label="theProtocol"/>
+						<Navigation.Tile href="/startupJobs" selected={page.url.pathname === '/startupJobs'} label="startupJobs"/>
+						<Navigation.Tile href="/itLeaders" selected={page.url.pathname === '/itLeaders'} label="it-leaders"/>
+					{/snippet}
+				</Navigation.Rail>
+			{:else}
+				<aside></aside>
+			{/if}
+
+		<main class="container mx-auto">
+				{@render children?.()}
+		</main>
 	</div>
-</AppShell>
+</div>

@@ -16,7 +16,7 @@
 
 	let { jobCategory } = $props();
 	const apiUrl = `/api/v1/total/today?jobCategory=${jobCategory}`;
-	let label = '';
+	let label = $state('');
 	switch (jobCategory) {
 		case JobCategory.Kotlin:
 			label = 'Kotlin';
@@ -102,7 +102,7 @@
 {:then totalOfferCount}
 	<div>
 		Total <strong>{label}</strong> offer number ({countTotalOfferNumber(totalOfferCount).toLocaleString()}) per job portal for today
-		<div id="chartContainer" class="relative mx-auto rounded-md">
+		<div id="chartContainer" class="relative mx-auto rounded-md dark:preset-filled">
 			<canvas id="myChart" use:initializeChart={totalOfferCount}></canvas>
 		</div>
 	</div>
@@ -111,7 +111,4 @@
 {/await}
 
 <style>
-	div#chartContainer {
-		background: rgba(var(--color-surface-50) / 1);
-	}
 </style>

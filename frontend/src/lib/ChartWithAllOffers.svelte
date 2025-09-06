@@ -70,17 +70,16 @@
 		<Icon name="spinner" class="inline animate-spin w-6 h-6"/>
 	</p>
 {:then jobOffer}
-	<div class="scroll-px-10 snap-x scroll-px-4 snap-mandatory scroll-smooth flex gap-4 overflow-x-auto px-2 py-5 mb-2 lg:justify-center">
+	<div class="scroll-px-10 snap-x scroll-px-4 snap-mandatory scroll-smooth flex gap-4 overflow-x-auto px-2 py-5 mb-2 lg:justify-center items-center">
 		{#each $jobOfferVariantList as jobOfferVariant}
 			<button
-				class="snap-center chip {jobOfferVariant.selected ? 'variant-filled' : 'variant-filled-surface'}"
+				type="button"
+				class="snap-center chip {jobOfferVariant.selected ? 'preset-filled-surface-500' : 'preset-outlined-surface-500'}"
 				onclick={() => { addOrRemoveDataset(jobPortal, jobOfferVariantList, chart, jobOfferVariant); }}
 				onkeypress={() => {}}
 			>
 				{#if jobOfferVariant.selected}
-				<span>
-					<Icon name="check" class="w4 h-4"/>
-				</span>
+					<Icon name="check" class="h-3"/>
 				{/if}
 				<span>
 					{mapPortalConstToString(jobPortal)}
@@ -89,16 +88,10 @@
 			</button>
 		{/each}
 	</div>
-	<div id="chartContainer" class="rounded-md">
-		<canvas id="myChart" use:initializeChart={jobOffer}></canvas>
+	<div id="chartContainer" class="rounded-md dark:preset-filled">
+		<canvas id="myChart" use:initializeChart={jobOffer} class="w-full"></canvas>
 	</div>
 {:catch error}
 	<p style="color: red">{error.message}</p>
 {/await}
 </div>
-
-<style>
-	div#chartContainer {
-		background-color: rgba(var(--color-surface-50) / 1);
-	}
-</style>

@@ -6,40 +6,43 @@
 
 <h1>Select portal with offers</h1>
 
-<div class="logo-cloud grid-cols-1 grid-cols-3 gap-1 md:!grid-cols-5">
-	<a class="logo-item" href="/justJoinIt">
-		<span>justJoin.it</span>
-	</a>
-	<a class="logo-item" href="/noFluffJobs">
-		<span>noFluffJobs</span>
-	</a>
-	<a class="logo-item" href="/solidJobs">
-		<span>solidJobs</span>
-	</a>
-	<a class="logo-item" href="/bulldogJob">
-		<span>bulldogJob</span>
-	</a>
-	<a class="logo-item" href="/inHireIo">
-		<span>inHire.io</span>
-	</a>
-	<a class="logo-item" href="/pracujPl">
-		<span>it.pracuj.pl</span>
-	</a>
-	<a class="logo-item" href="/theProtocol">
-		<span>theProtocol<span class="hidden sm:inline-block">.it</span></span>
-	</a>
-	<a class="logo-item" href="/startupJobs">
-		<span>startupJobs<span class="hidden sm:inline-block">.com</span></span>
-	</a>
-	<a class="logo-item" href="/itLeaders">
-		<span>it-leaders.pl</span>
-	</a>
+<div class="flex justify-center">
+	<nav class="btn-group preset-outlined-surface-200-800 flex-col p-2 md:flex-row">
+		<button type="button" class="btn preset-outlined-surface-500">
+			<a href="/justJoinIt">justJoin.it</a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+			<a class="logo-item" href="/noFluffJobs">noFluffJobs</a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+			<a class="logo-item" href="/solidJobs">solidJobs</a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+			<a class="logo-item" href="/bulldogJob">bulldogJob</a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+			<a class="logo-item" href="/inHireIo">inHire.io</a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+			<a class="logo-item" href="/pracujPl">it.pracuj.pl</a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+		<a class="logo-item" href="/theProtocol">theProtocol<span class="hidden sm:inline-block">.it</span></a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+		<a class="logo-item" href="/startupJobs">startupJobs<span class="hidden sm:inline-block">.com</span></a>
+		</button>
+		<button type="button" class="btn preset-outlined-surface-500">
+			<a class="logo-item" href="/itLeaders">it-leaders.pl</a>
+		</button>
+	</nav>
 </div>
 <br />
-<div class="container mx-auto">
+<div>
 	<div>Total offer numbers chart:</div>
 	<ChartTotal />
 </div>
+<br />
 <div class="grid grid-cols-3 gap-5">
 	<ChartPieWithTotalToday jobCategory={JobCategory.Total} />
 	<ChartPieWithTotalToday jobCategory={JobCategory.Kotlin} />

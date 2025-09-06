@@ -7,6 +7,4 @@
 
 <h1>Chart with <a href="https://justJoin.it" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">justJoin.it</a> offers</h1>
 
-<div class="container mx-auto">
-	<ChartWithAllOffers jobPortal={JUST_JOIN_IT} jobOfferVariantList={jobOfferVariantList} />
-</div>
+<ChartWithAllOffers jobPortal={JUST_JOIN_IT} jobOfferVariantList={jobOfferVariantList} />
