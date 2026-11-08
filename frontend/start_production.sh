@@ -25,4 +25,4 @@ docker run --tty --interactive \
     --network caddy \
     --label caddy=${APP_URL} \
     --label caddy.reverse_proxy="{{upstreams 3000}}" \
-    node:21 node build
+    node:26 node build
