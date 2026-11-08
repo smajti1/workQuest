@@ -6,9 +6,8 @@ import io.kotest.matchers.string.shouldContain
 import it.workQuest.cron.startupJobs.StartupJobsRequestBuilder
 import it.workQuest.model.JobCategory
 
-class StartupJobsRequestBuilderUnitTest(
-    private val startupJobsRequestBuilder: StartupJobsRequestBuilder = StartupJobsRequestBuilder(),
-) : StringSpec({
+class StartupJobsRequestBuilderUnitTest: StringSpec({
+    val startupJobsRequestBuilder = StartupJobsRequestBuilder()
 
     "should return url for total" {
         startupJobsRequestBuilder.build().url.toString() shouldBe "https://www.startupjobs.com/api/offers?area[]=development"

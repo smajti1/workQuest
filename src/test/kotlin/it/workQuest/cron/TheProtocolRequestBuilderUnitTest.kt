@@ -6,9 +6,8 @@ import io.kotest.matchers.string.shouldContain
 import it.workQuest.cron.theProtocol.TheProtocolRequestBuilder
 import it.workQuest.model.JobCategory
 
-class TheProtocolRequestBuilderUnitTest(
-    private val theProtocolRequestBuilder: TheProtocolRequestBuilder = TheProtocolRequestBuilder(),
-) : StringSpec({
+class TheProtocolRequestBuilderUnitTest: StringSpec({
+    val theProtocolRequestBuilder = TheProtocolRequestBuilder()
 
     "should return url for total" {
         theProtocolRequestBuilder.build().url.toString() shouldBe "https://theprotocol.it/filtry/zdalna,hybrydowa,stacjonarna;rw"

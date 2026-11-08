@@ -6,9 +6,8 @@ import io.kotest.matchers.string.shouldContain
 import it.workQuest.cron.bulldogJob.BulldogJobRequestBuilder
 import it.workQuest.model.JobCategory
 
-class BulldogJobRequestBuilderUnitTest(
-    private val bulldogJobRequestBuilder: BulldogJobRequestBuilder = BulldogJobRequestBuilder(),
-) : StringSpec({
+class BulldogJobRequestBuilderUnitTest : StringSpec({
+    val bulldogJobRequestBuilder = BulldogJobRequestBuilder()
 
     "should return url for total" {
         bulldogJobRequestBuilder.build().url.toString() shouldBe "https://bulldogjob.pl/graphql"

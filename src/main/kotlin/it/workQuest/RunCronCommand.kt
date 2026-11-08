@@ -10,13 +10,14 @@ import it.workQuest.cron.solidJobs.SolidJobsCron
 import it.workQuest.cron.startupJobs.StartupJobsCron
 import it.workQuest.cron.theProtocol.TheProtocolCron
 import it.workQuest.model.JobPortal
-import org.springframework.shell.standard.ShellComponent
-import org.springframework.shell.standard.ShellMethod
-import org.springframework.shell.standard.ShellOption
+import org.springframework.shell.core.command.annotation.Command
+import org.springframework.shell.core.command.annotation.Option
+import org.springframework.stereotype.Component
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
-@ShellComponent
+
+@Component
 class RunCronCommand(
     val justJoinItCron: JustJoinItCron,
     val noFluffJobsComCron: NoFluffJobsComCron,
@@ -29,8 +30,10 @@ class RunCronCommand(
     val itLeadersCron: ItLeadersCron,
 ) {
 
-    @ShellMethod(key = ["runCronAll", "run-cron-all"])
-    fun executeRunAllCron(disableSleepBetween: Boolean = false): String {
+    @Command(name = ["runCronAll"], alias = ["run-cron-all"])
+    fun executeRunAllCron(
+        @Option(defaultValue = "false") disableSleepBetween: Boolean = false
+    ): String {
         val startTime = System.currentTimeMillis()
         var countCronFunctions = 0
         val arrayOfCronFunctions = justJoinItCron.getCronFunctionArray() +
@@ -54,10 +57,10 @@ class RunCronCommand(
         return "Done $countCronFunctions cron functions :) in: [" + duration.toHumanMinutesAndSeconds() + "]"
     }
 
-    @ShellMethod(key = ["runCron", "run-cron"])
+    @Command(name = ["runCron"], alias = ["run-cron"])
     fun executeSingleCron(
-        @ShellOption(defaultValue = "") cronName: String,
-        disableSleepBetween: Boolean = false,
+        @Option(defaultValue = "") cronName: String,
+        @Option(defaultValue = "false") disableSleepBetween: Boolean = false,
     ): String {
         val arrayOfCronFunctions = when (cronName) {
             JobPortal.JUST_JOIN_IT.toString() -> justJoinItCron.getCronFunctionArray()

@@ -6,9 +6,8 @@ import io.kotest.matchers.string.shouldContain
 import it.workQuest.cron.pracujPl.PracujPlRequestBuilder
 import it.workQuest.model.JobCategory
 
-class PracujPlRequestBuilderUnitTest(
-    private val pracujPlRequestBuilder: PracujPlRequestBuilder = PracujPlRequestBuilder(),
-) : StringSpec({
+class PracujPlRequestBuilderUnitTest: StringSpec({
+    val pracujPlRequestBuilder = PracujPlRequestBuilder()
 
     "should return url for total" {
         pracujPlRequestBuilder.build().url.toString() shouldBe "https://massachusetts.pracuj.pl/jobOffers/listing/count?pn=1&iwhpl=true&subservice=1"

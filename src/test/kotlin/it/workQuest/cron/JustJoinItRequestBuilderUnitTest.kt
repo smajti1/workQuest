@@ -6,9 +6,8 @@ import io.kotest.matchers.string.shouldContain
 import it.workQuest.cron.justJoinIt.JustJoinItRequestBuilder
 import it.workQuest.model.JobCategory
 
-class JustJoinItRequestBuilderUnitTest(
-    private val justJoinItRequestBuilder: JustJoinItRequestBuilder = JustJoinItRequestBuilder(),
-) : StringSpec({
+class JustJoinItRequestBuilderUnitTest: StringSpec({
+    val justJoinItRequestBuilder = JustJoinItRequestBuilder()
 
     "should return url for total" {
         justJoinItRequestBuilder.build().url.toString() shouldBe "https://api.justjoin.it/v2/user-panel/offers/count?withSalary=false&salaryCurrencies=PLN"

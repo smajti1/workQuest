@@ -2,21 +2,21 @@ import de.undercouch.gradle.tasks.download.Download
 import org.gradle.kotlin.dsl.register
 
 plugins {
-    id("org.springframework.boot") version "3.5.4"
+    id("org.springframework.boot") version "4.1.2"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.adarshr.test-logger") version "4.0.0"
     kotlin("jvm") version "2.4.21"
     kotlin("plugin.spring") version "2.4.21"
     kotlin("plugin.jpa") version "2.4.21"
     kotlin("plugin.serialization") version "2.4.21"
-    id("de.undercouch.download") version "5.6.0"
+    id("de.undercouch.download") version "5.7.0"
 
     /**
      * list dependency update
      * ./gradlew dependencyUpdates
      * @see https://github.com/ben-manes/gradle-versions-plugin#gradle-versions-plugin
      */
-    id("com.github.ben-manes.versions") version "0.52.0"
+    id("io.github.ben-manes.versions") version "0.67.0"
 }
 
 group = "it.dziubinski"
@@ -34,23 +34,23 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.shell:spring-shell-starter:3.4.0")
+    implementation("org.springframework.shell:spring-shell-starter:4.0.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.4.21")
     implementation("com.github.kittinunf.fuel:fuel:2.3.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0")
     runtimeOnly("org.postgresql:postgresql")
-    implementation("org.seleniumhq.selenium:selenium-java:4.34.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.52.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
-    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
-    testImplementation("io.mockk:mockk:1.14.5")
+    testImplementation("io.kotest:kotest-runner-junit5:6.2.6")
+    testImplementation("io.kotest:kotest-extensions-spring:6.2.6")
+    testImplementation("io.mockk:mockk:1.14.12")
     testImplementation("org.reflections:reflections:0.10.2")
 }
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.shell:spring-shell-dependencies:3.4.1") // https://github.com/spring-projects/spring-shell
+        mavenBom("org.springframework.shell:spring-shell-dependencies:4.0.3") // https://github.com/spring-projects/spring-shell
     }
 }
 

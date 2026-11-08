@@ -6,9 +6,8 @@ import io.kotest.matchers.string.shouldContain
 import it.workQuest.cron.inHireIo.InHireIoRequestBuilder
 import it.workQuest.model.JobCategory
 
-class InHireIoRequestBuilderUnitTest(
-    private val inHireIoRequestBuilder: InHireIoRequestBuilder = InHireIoRequestBuilder(),
-) : StringSpec({
+class InHireIoRequestBuilderUnitTest: StringSpec({
+    val inHireIoRequestBuilder = InHireIoRequestBuilder()
 
     "should return url for total" {
         inHireIoRequestBuilder.build().url.toString() shouldBe "https://inhire.io/getAllOffersNonAuth"

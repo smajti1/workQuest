@@ -5,9 +5,8 @@ import io.kotest.matchers.shouldBe
 import it.workQuest.cron.itLeaders.ItLeadersRequestBuilder
 import it.workQuest.model.JobCategory
 
-class ItLeadersRequestBuilderUnitTest(
-    private val itLeadersRequestBuilder: ItLeadersRequestBuilder = ItLeadersRequestBuilder(),
-) : StringSpec({
+class ItLeadersRequestBuilderUnitTest: StringSpec({
+    val itLeadersRequestBuilder = ItLeadersRequestBuilder()
 
     "should return url for total" {
         itLeadersRequestBuilder.build().url.toString() shouldBe "https://app.it-leaders.pl/pl/api_v1/getRecrutations"

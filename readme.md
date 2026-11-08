@@ -21,7 +21,7 @@ Copy or create newrelic config file `newrelic/newrelic.yml` copy from `build/lib
 
 Project will be build when docker start `docker compose up --detach`
 
-To attach to container use `./attach.sh` to exit `Ctrl+P, Ctrl+Q` (you may need to push enter to see `shell:>`) next you can use spring boot shell command:
+To attach to container use `./attach.sh` to exit `Ctrl+c` (you may need to push enter to see `shell:>`) next you can use spring boot shell command:
 
 - `runCronAll` to run all cron task
 - `runCron JOB_PORTAL` to run only one (run `runCron` to list available options)
@@ -43,13 +43,13 @@ To run project in development mode
     ./npm.sh install
     ./npm.sh run dev -- --host
 
-Frontend just run on http://localhost:5173 to change default port change it in [npm.sh](./frontend/npm.sh)
+then development Frontend just run on http://localhost:5173 to change default port change it in [npm.sh](./frontend/npm.sh)
 
 To create a production version of app just run:
 
     ./start_production.sh #it will run node server using docker in detached mode
 
-Frontend just run on http://localhost:3000 to change default port change it
+production Frontend just run on http://localhost:3000 to change default port change it
 in [start_production.sh](./frontend/start_production.sh)
 see more in https://kit.svelte.dev/docs/adapter-node
 

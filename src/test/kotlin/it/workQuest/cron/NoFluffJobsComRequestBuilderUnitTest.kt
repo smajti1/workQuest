@@ -5,9 +5,8 @@ import io.kotest.matchers.shouldBe
 import it.workQuest.cron.noFluffJobsCom.NoFluffJobsComRequestBuilder
 import it.workQuest.model.JobCategory
 
-class NoFluffJobsComRequestBuilderUnitTest(
-    private val noFluffJobsComRequestBuilder: NoFluffJobsComRequestBuilder = NoFluffJobsComRequestBuilder(),
-) : StringSpec({
+class NoFluffJobsComRequestBuilderUnitTest: StringSpec({
+    val noFluffJobsComRequestBuilder = NoFluffJobsComRequestBuilder()
 
     "should return url for total" {
         noFluffJobsComRequestBuilder.build().url.toString() shouldBe "https://nofluffjobs.com/api/search/posting?pageSize=20&salaryCurrency=PLN&salaryPeriod=month&region=pl"
