@@ -38,7 +38,7 @@ services:
 
   kotlin-backend:
     container_name: workQuest-kotlin-backend
-    image: eclipse-temurin:21
+    image: eclipse-temurin:25
     mem_limit: ${MEMORY_LIMIT}
     stdin_open: true
     tty: true # with this set to true use Ctrl+P, Ctrl+Q to exit

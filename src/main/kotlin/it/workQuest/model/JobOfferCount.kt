@@ -19,6 +19,7 @@ class JobOfferCount(
     }
 
     init {
+        val city = this.city
         if (city != null && !cities.contains(city)) {
             throw JobOfferCountInvalidCityException(city)
         }

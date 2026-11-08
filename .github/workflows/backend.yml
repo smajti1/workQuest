@@ -11,7 +11,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '25'
 
       #- run: kotlinc -version && java --version # Check kotlin/java version only uncomment when something not working
 
